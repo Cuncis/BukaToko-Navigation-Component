@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">BukaToko</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_cart">Cart</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_transaction">Transaction</string>
+    <string name="menu_notif">Notification</string>
+    <string name="nama_produk">Product Name</string>
+    <string name="harga">Price</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_now">Register Now</string>
+    <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="lorem_ipsumm">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="profil">Profil</string>
+    <string name="logout">Logout</string>
+    <string name="my_account">My Account</string>
+    <string name="login_register">Login | Register</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+</resources>
