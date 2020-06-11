@@ -6,12 +6,13 @@ import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.cuncis.bukatoko.util.Constants.TAG
-import java.lang.Exception
+import java.text.NumberFormat
+import java.util.*
+import java.util.regex.Pattern
 
 
 class Utils {
@@ -23,8 +24,8 @@ class Utils {
             circularProgressDrawable.start()
             Glide.with(this)
                 .load(url)
-                .centerCrop()
-                .placeholder(circularProgressDrawable)
+//                .centerCrop()
+//                .placeholder(circularProgressDrawable)
                 .into(this);
         }
 
@@ -57,6 +58,22 @@ class Utils {
             } catch (e: Exception) {
                 Log.d(TAG, "showLoading: Keyboard: ${e.localizedMessage}")
             }
+        }
+
+        fun rupiah(number: Int): String? {
+            val numberFormat: NumberFormat = NumberFormat.getInstance(Locale.GERMANY)
+            return numberFormat.format(number)
+        }
+
+        fun isValidEmailId(email: String?): Boolean {
+            return Pattern.compile(
+                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                        + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                        + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                        + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                        + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
+            ).matcher(email).matches()
         }
     }
 }

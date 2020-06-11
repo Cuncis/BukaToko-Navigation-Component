@@ -21,7 +21,7 @@ data class Data(
 	val product: String,
 
 	@SerializedName("images")
-	val images: List<Images>,
+	val images: ArrayList<Images>,
 
 	@SerializedName("price")
 	val price: Int,

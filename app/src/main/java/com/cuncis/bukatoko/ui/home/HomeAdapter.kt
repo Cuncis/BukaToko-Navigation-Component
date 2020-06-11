@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Product
+import com.cuncis.bukatoko.util.Utils
 import com.cuncis.bukatoko.util.Utils.Companion.setImageFromUrl
 import com.cuncis.bukatoko.util.Utils.Companion.showView
 import kotlinx.android.synthetic.main.item_product.view.*
@@ -42,7 +43,7 @@ class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerVie
             tvName.showView()
             tvPrice.showView()
             tvName.text = product.product
-            tvPrice.text = product.price.toString()
+            tvPrice.text = Utils.rupiah(product.price)
             imgPoster.setImageFromUrl(product.image)
             itemView.setOnClickListener {
                  productClickListener.onItemClick(product)

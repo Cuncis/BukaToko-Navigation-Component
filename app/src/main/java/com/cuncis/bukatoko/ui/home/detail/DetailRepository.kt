@@ -13,6 +13,7 @@ class DetailRepository {
 
     val detailData = MutableLiveData<ProductDetailResponse>()
     val loading = MutableLiveData<Boolean>()
+    val message = MutableLiveData<String>()
 
     fun getProductById(id: String): MutableLiveData<ProductDetailResponse> {
         loading.value = true

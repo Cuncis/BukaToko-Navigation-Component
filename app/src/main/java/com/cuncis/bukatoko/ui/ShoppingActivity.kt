@@ -109,4 +109,9 @@ class ShoppingActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    override fun onBackPressed() {
+        val navController = findNavController(R.id.nav_host_fragment)
+        navController.navigateUp(appBarConfiguration)
+    }
+
 }

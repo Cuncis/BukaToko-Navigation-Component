@@ -16,4 +16,8 @@ class DetailViewModel : ViewModel() {
         return repository.loading
     }
 
+    fun getMessage(): MutableLiveData<String> {
+        return repository.message
+    }
+
 }
