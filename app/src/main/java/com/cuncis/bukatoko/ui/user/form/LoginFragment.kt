@@ -12,6 +12,7 @@ import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.ui.user.UserViewModel
 import com.cuncis.bukatoko.util.Utils.Companion.hideLoading
+import com.cuncis.bukatoko.util.Utils.Companion.isValidEmailId
 import com.cuncis.bukatoko.util.Utils.Companion.showLoading
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
@@ -50,15 +51,19 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (et_email.text.toString().trim().isEmpty() || et_password.text.toString().isEmpty()) {
                 Toast.makeText(requireContext(), "Fill the field please!", Toast.LENGTH_SHORT).show()
             } else {
-                userViewModel.login(et_email.text.toString().trim(), et_password.text.toString()).observe(viewLifecycleOwner, Observer { users ->
-                    ShoppingPref.setUsername(requireContext(), users.data.id, users.data.name, users.data.email, et_password.text.toString())
-                    Toast.makeText(requireContext(), "Login Successfully as ${ShoppingPref.getUsername(requireContext())}", Toast.LENGTH_SHORT).show()
-                    when (findNavController().currentDestination?.id) {
-                        R.id.loginFragment -> {
-                            findNavController().navigate(R.id.action_loginFragment_to_nav_home)
+                if (isValidEmailId(et_email.text.toString())) {
+                    userViewModel.login(et_email.text.toString().trim(), et_password.text.toString()).observe(viewLifecycleOwner, Observer { users ->
+                        ShoppingPref.setUsername(requireContext(), users.data.id, users.data.name, users.data.email, et_password.text.toString())
+                        Toast.makeText(requireContext(), "Login Successfully as ${ShoppingPref.getUsername(requireContext())}", Toast.LENGTH_SHORT).show()
+                        when (findNavController().currentDestination?.id) {
+                            R.id.loginFragment -> {
+                                findNavController().navigate(R.id.action_loginFragment_to_nav_home)
+                            }
                         }
-                    }
-                })
+                    })
+                } else {
+                    Toast.makeText(requireContext(), "Email not valid", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

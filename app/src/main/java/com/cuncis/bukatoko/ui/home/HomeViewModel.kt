@@ -23,17 +23,19 @@ class HomeViewModel : ViewModel() {
     fun getAllProducts(): MutableLiveData<List<Product>> {
         loading.value = true
         viewModelScope.launch {
-            val response = repository.getAllProducts()
-            try {
-                loading.value = false
-                if (response.isSuccessful) {
-                    productList.postValue(response.body()?.data)
-                } else {
-                    Log.d(TAG, "getAllProducts: ${response.message()}")
+            withContext(Dispatchers.Main) {
+                val response = repository.getAllProducts()
+                try {
+                    loading.value = false
+                    if (response.isSuccessful) {
+                        productList.postValue(response.body()?.data)
+                    } else {
+                        Log.d(TAG, "getAllProducts: ${response.message()}")
+                    }
+                } catch (e: Exception) {
+                    loading.value = false
+                    Log.d(TAG, "getAllProducts: ${e.localizedMessage}")
                 }
-            } catch (e: Exception) {
-                loading.value = false
-                Log.d(TAG, "getAllProducts: ${e.localizedMessage}")
             }
         }
 

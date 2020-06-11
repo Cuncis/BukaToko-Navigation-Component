@@ -34,4 +34,8 @@
     <string name="save">Save</string>
     <string name="update">Update</string>
     <string name="cancel">Cancel</string>
+    <string name="product_added_to_cart">Product Added to Cart</string>
+    <string name="go_to_payment">Go To Payment</string>
+    <string name="go_to_cart">Go To Cart</string>
+    <string name="pay_now">Pay Now</string>
 </resources>
