@@ -21,6 +21,7 @@ import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Utils
+import com.cuncis.bukatoko.util.Utils.Companion.getCurrentDate
 import com.cuncis.bukatoko.util.Utils.Companion.hideLoading
 import com.cuncis.bukatoko.util.Utils.Companion.hideView
 import com.cuncis.bukatoko.util.Utils.Companion.showLoading
@@ -61,6 +62,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             val cart = Cart()
             cart.productName = productData.product
             cart.price = productData.price.toDouble()
+            cart.currentDate = getCurrentDate()
+            Log.d(TAG, "initListener: Data Temp: $cart")
             cartViewModel.insertCart(cart)
             showCartDialog()
         }

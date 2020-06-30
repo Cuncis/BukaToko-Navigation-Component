@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.cuncis.bukatoko.util.Constants.TAG
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
 
@@ -74,6 +75,13 @@ class Utils {
                         + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
                         + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
             ).matcher(email).matches()
+        }
+
+        fun getCurrentDate(): String {
+            val sdf = SimpleDateFormat("dd/MM/yy HH:mm:ss", Locale.US)
+            val date = Date()
+
+            return sdf.format(date)
         }
     }
 }

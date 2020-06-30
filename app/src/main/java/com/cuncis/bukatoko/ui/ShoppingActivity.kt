@@ -1,10 +1,12 @@
 package com.cuncis.bukatoko.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -96,11 +98,31 @@ class ShoppingActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_cart) {
+            if (ShoppingPref.getUsername(this) == "") {
+                dialogLoginAlert()
+            } else {
+                if (findNavController(R.id.nav_host_fragment).currentDestination?.id == R.id.nav_home) {
+                    findNavController(R.id.nav_host_fragment).navigate(
+                        R.id.action_nav_home_to_cartFragment
+                    )
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun dialogLoginAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setTitle("Alert")
+        builder.setMessage("You are not login yet.")
+        builder.setPositiveButton("Go To Login") { dialog, _ ->
             findNavController(R.id.nav_host_fragment).navigate(
                 R.id.action_nav_home_to_loginFragment
             )
+            dialog.dismiss()
         }
-        return super.onOptionsItemSelected(item)
+        builder.create().show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -112,6 +134,7 @@ class ShoppingActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val navController = findNavController(R.id.nav_host_fragment)
         navController.navigateUp(appBarConfiguration)
+        finish()
     }
 
 }

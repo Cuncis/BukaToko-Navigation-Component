@@ -8,19 +8,23 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Product
 import com.cuncis.bukatoko.util.Constants.PRODUCT_DETAIL_EXTRA
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment : Fragment(R.layout.fragment_home), HomeAdapter.OnProductClickListener {
+class HomeFragment : Fragment(R.layout.fragment_home),
+    HomeAdapter.OnProductClickListener {
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeAdapter: HomeAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val repository = HomeRepository()
+        val factory = HomeViewModelFactory(repository)
+        homeViewModel = ViewModelProvider(requireActivity(), factory).get(HomeViewModel::class.java)
 
         initRecyclerView()
 
@@ -43,22 +47,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), HomeAdapter.OnProductClic
         homeViewModel.getAllProducts().observe(viewLifecycleOwner, Observer { productList ->
             homeAdapter.setProductList(productList)
         })
-        homeViewModel.loading.observe(viewLifecycleOwner, Observer { loading ->
-            if (loading) {
-                rv_product.showShimmerAdapter()
-            } else {
-                rv_product.hideShimmerAdapter()
-            }
-        })
-        homeViewModel.message.observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), "Error: $it", Toast.LENGTH_SHORT).show()
-        })
     }
 
     private fun initRecyclerView() {
         homeAdapter = HomeAdapter(this)
         rv_product.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
+            setHasFixedSize(true)
             adapter = homeAdapter
         }
     }

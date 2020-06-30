@@ -28,6 +28,5 @@ data class Cart(
     var currentDate: String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "cart_id")
     var id: Int = 0
 }
