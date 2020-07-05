@@ -23,6 +23,8 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.DrawerState
+import kotlinx.android.synthetic.main.activity_shopping.*
+import kotlinx.android.synthetic.main.content_shopping.*
 
 class ShoppingActivity : AppCompatActivity() {
 
@@ -133,8 +135,32 @@ class ShoppingActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         val navController = findNavController(R.id.nav_host_fragment)
-        navController.navigateUp(appBarConfiguration)
-        finish()
+        when (findNavController(R.id.nav_host_fragment).currentDestination?.id) {
+            R.id.nav_profil -> {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                } else {
+                    navController.navigate(R.id.action_nav_profil_to_nav_home)
+                }
+            }
+            R.id.nav_transaction -> {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                } else {
+                    navController.navigate(R.id.action_nav_transaction_to_nav_home)
+                }
+            }
+            R.id.nav_notif -> {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                } else {
+                    navController.navigate(R.id.action_nav_notif_to_nav_home)
+                }
+            }
+            else -> {
+                navController.navigateUp(appBarConfiguration)
+            }
+        }
     }
 
 }

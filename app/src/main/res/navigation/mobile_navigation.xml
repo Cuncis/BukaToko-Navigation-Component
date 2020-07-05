@@ -28,13 +28,21 @@
         android:id="@+id/nav_transaction"
         android:name="com.cuncis.bukatoko.ui.transaction.TransactionFragment"
         android:label="@string/menu_transaction"
-        tools:layout="@layout/fragment_transaction" />
+        tools:layout="@layout/fragment_transaction" >
+        <action
+            android:id="@+id/action_nav_transaction_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_notif"
         android:name="com.cuncis.bukatoko.ui.notification.NotificationFragment"
         android:label="@string/menu_notif"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_nav_notif_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.cuncis.bukatoko.ui.user.form.LoginFragment"
@@ -71,7 +79,11 @@
         android:id="@+id/nav_profil"
         android:name="com.cuncis.bukatoko.ui.user.profile.ProfileFragment"
         android:label="@string/profil"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_nav_profil_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.cuncis.bukatoko.ui.cart.CartFragment"
