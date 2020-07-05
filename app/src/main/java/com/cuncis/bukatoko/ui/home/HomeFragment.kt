@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,19 +13,20 @@ import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Product
 import com.cuncis.bukatoko.util.Constants.PRODUCT_DETAIL_EXTRA
+import com.cuncis.bukatoko.util.Constants.TAG
+import com.cuncis.bukatoko.util.Status
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment(R.layout.fragment_home),
     HomeAdapter.OnProductClickListener {
 
-    private lateinit var homeViewModel: HomeViewModel
     private lateinit var homeAdapter: HomeAdapter
+
+    private val homeViewModel by inject<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val repository = HomeRepository()
-        val factory = HomeViewModelFactory(repository)
-        homeViewModel = ViewModelProvider(requireActivity(), factory).get(HomeViewModel::class.java)
 
         initRecyclerView()
 
@@ -37,15 +39,29 @@ class HomeFragment : Fragment(R.layout.fragment_home),
         swipe_product.setOnRefreshListener {
             swipe_product.isRefreshing = false
 
-            homeViewModel.getAllProducts().observe(viewLifecycleOwner, Observer { productList ->
-                homeAdapter.setProductList(productList)
-            })
+            homeViewModel.getAllProducts()
         }
     }
 
     private fun observeViewModel() {
-        homeViewModel.getAllProducts().observe(viewLifecycleOwner, Observer { productList ->
-            homeAdapter.setProductList(productList)
+        homeViewModel.getAllProducts()
+        homeViewModel.dataProducts.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { data ->
+                        swipe_product.isRefreshing = false
+                        homeAdapter.setProductList(data)
+                        Log.d(TAG, "observeViewModel: $data")
+                    }
+                }
+                Status.ERROR -> {
+                    swipe_product.isRefreshing = false
+                    Log.d(TAG, "observeViewModel: ${it.message}")
+                }
+                Status.LOADING -> {
+                    swipe_product.isRefreshing = true
+                }
+            }
         })
     }
 

@@ -1,36 +1,34 @@
 package com.cuncis.bukatoko.ui.home
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cuncis.bukatoko.data.model.Product
-import com.cuncis.bukatoko.data.model.ProductResponse
+import com.cuncis.bukatoko.data.model.Resource
+import com.cuncis.bukatoko.data.new_model.Product
+import com.cuncis.bukatoko.data.new_repository.ApiRepoProduct
 import com.cuncis.bukatoko.util.Constants.TAG
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.lang.Exception
 
-class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
+class HomeViewModel(private val apiRepoProduct: ApiRepoProduct, application: Application)
+    : AndroidViewModel(application) {
 
-    var productList = MutableLiveData<List<Product>>()
+    private val _dataProducts = MutableLiveData<Resource<Product.Response>>()
+    val dataProducts: MutableLiveData<Resource<Product.Response>>
+        get() = _dataProducts
 
-    fun getAllProducts(): MutableLiveData<List<Product>> {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getAllProducts()
+    fun getAllProducts() {
+        _dataProducts.postValue(Resource.loading(null))
+        viewModelScope.launch {
             try {
-                if (response.isSuccessful) {
-                    val products = repository.getAllProducts()
-                    productList.postValue(products.body()?.data)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
+                val response = apiRepoProduct.getAllProduct()
+                _dataProducts.postValue(Resource.success(response))
+                Log.d(TAG, "getAllProducts: ${response.data}")
+            } catch (t: Throwable) {
+                _dataProducts.postValue(Resource.error(t.message.toString(), null, t))
             }
         }
-        return productList
     }
 
 }
