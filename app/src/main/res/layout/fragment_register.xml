@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_password"
+            android:inputType="textPassword"
             android:hint="@string/password"
             android:layout_marginTop="6dp"/>
 
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_re_password"
+            android:inputType="textPassword"
             android:hint="@string/confirm_password"
             android:layout_marginTop="6dp"/>
 
@@ -51,5 +53,10 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"/>
     </LinearLayout>
+
+    <include
+        android:id="@+id/layout_progressBar"
+        layout="@layout/layout_loading"
+        android:visibility="gone" />
 
 </FrameLayout>

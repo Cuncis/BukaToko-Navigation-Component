@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cuncis.bukatoko.data.model.Resource
-import com.cuncis.bukatoko.data.new_model.Detail
-import com.cuncis.bukatoko.data.new_repository.ApiRepoProduct
+import com.cuncis.bukatoko.data.model.Detail
+import com.cuncis.bukatoko.data.repository.ApiRepoProduct
 import kotlinx.coroutines.launch
 
 class DetailViewModel(private val apiRepoProduct: ApiRepoProduct, application: Application)

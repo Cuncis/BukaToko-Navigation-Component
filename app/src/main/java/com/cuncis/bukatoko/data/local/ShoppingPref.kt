@@ -3,7 +3,8 @@ package com.cuncis.bukatoko.data.local
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.cuncis.bukatoko.data.model.DataUser
+import com.cuncis.bukatoko.data.model.User
+import com.cuncis.bukatoko.data.model.UserData
 import com.cuncis.bukatoko.util.Constants.EMAIL_KEY
 import com.cuncis.bukatoko.util.Constants.ID_USER_KEY
 import com.cuncis.bukatoko.util.Constants.PASSWORD_KEY
@@ -26,9 +27,9 @@ class ShoppingPref {
             editor.apply()
         }
 
-        fun getUserData(context: Context): DataUser {
+        fun getUserData(context: Context): UserData {
             val pref = getSharedPreferences(context)
-            return DataUser(
+            return UserData(
                 pref.getInt(ID_USER_KEY, 0),
                 pref.getString(USERNAME_KEY, "").toString(),
                 pref.getString(EMAIL_KEY, "").toString(),

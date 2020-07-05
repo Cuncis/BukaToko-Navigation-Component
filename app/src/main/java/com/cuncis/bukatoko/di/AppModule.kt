@@ -1,9 +1,9 @@
 package com.cuncis.bukatoko.di
 
-import com.cuncis.bukatoko.data.new_api.provideClientProduct
-import com.cuncis.bukatoko.data.new_api.provideHttpLoggingInterceptor
-import com.cuncis.bukatoko.data.new_api.provideOkHttpClient
-import com.cuncis.bukatoko.data.new_repository.ApiRepoProduct
+import com.cuncis.bukatoko.data.api.provideClientProduct
+import com.cuncis.bukatoko.data.api.provideHttpLoggingInterceptor
+import com.cuncis.bukatoko.data.api.provideOkHttpClient
+import com.cuncis.bukatoko.data.repository.ApiRepoProduct
 import com.cuncis.bukatoko.ui.home.HomeViewModel
 import com.cuncis.bukatoko.ui.home.detail.DetailViewModel
 import com.cuncis.bukatoko.ui.user.UserViewModel

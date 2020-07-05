@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_product.view.*
 
 class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    private var productList: ArrayList<Product> = ArrayList()
+    private var productList: ArrayList<Product.Data> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
@@ -28,7 +28,7 @@ class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerVie
         holder.bind(productList[position])
     }
 
-    fun setProductList(products: List<Product>) {
+    fun setProductList(products: List<Product.Data>) {
         productList.clear()
         productList.addAll(products)
         notifyDataSetChanged()
@@ -39,7 +39,7 @@ class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerVie
         var tvPrice: TextView = view.tv_price
         var tvName: TextView = view.tv_name
 
-        fun bind(product: Product) {
+        fun bind(product: Product.Data) {
             tvName.showView()
             tvPrice.showView()
             tvName.text = product.product
@@ -52,6 +52,6 @@ class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerVie
     }
 
     interface OnProductClickListener {
-        fun onItemClick(product: Product)
+        fun onItemClick(product: Product.Data)
     }
 }

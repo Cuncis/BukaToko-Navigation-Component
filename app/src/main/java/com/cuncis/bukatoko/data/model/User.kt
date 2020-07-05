@@ -1,4 +1,4 @@
-package com.cuncis.bukatoko.data.new_model
+package com.cuncis.bukatoko.data.model
 
 object User {
     data class Data(

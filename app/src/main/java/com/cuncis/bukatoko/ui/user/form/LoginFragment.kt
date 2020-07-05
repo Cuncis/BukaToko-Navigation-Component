@@ -38,6 +38,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.data?.let { user ->
+                        view.layout_progressBar.hideLoading(requireActivity())
                         ShoppingPref.setUsername(
                             requireContext(),
                             user.id,

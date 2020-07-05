@@ -1,6 +1,5 @@
 package com.cuncis.bukatoko.ui.home.detail
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,7 +15,7 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.persistence.Cart
 import com.cuncis.bukatoko.data.local.persistence.CartViewModel
 import com.cuncis.bukatoko.data.model.Product
-import com.cuncis.bukatoko.data.new_model.Detail
+import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.Constants.TAG
@@ -36,9 +35,7 @@ import org.koin.android.ext.android.inject
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-
-//    private lateinit var detailViewModel: DetailViewModel
-    private lateinit var productData: Product
+    private lateinit var productData: Product.Data
     private lateinit var cartViewModel: CartViewModel
 
     private val detailViewModel by inject<DetailViewModel>()
