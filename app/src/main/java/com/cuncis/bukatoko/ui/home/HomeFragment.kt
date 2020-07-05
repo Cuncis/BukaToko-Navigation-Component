@@ -51,12 +51,11 @@ class HomeFragment : Fragment(R.layout.fragment_home),
                     it.data?.data?.let { data ->
                         swipe_product.isRefreshing = false
                         homeAdapter.setProductList(data)
-                        Log.d(TAG, "observeViewModel: $data")
                     }
                 }
                 Status.ERROR -> {
                     swipe_product.isRefreshing = false
-                    Log.d(TAG, "observeViewModel: ${it.message}")
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
                 Status.LOADING -> {
                     swipe_product.isRefreshing = true

@@ -24,7 +24,6 @@ class HomeViewModel(private val apiRepoProduct: ApiRepoProduct, application: App
             try {
                 val response = apiRepoProduct.getAllProduct()
                 _dataProducts.postValue(Resource.success(response))
-                Log.d(TAG, "getAllProducts: ${response.data}")
             } catch (t: Throwable) {
                 _dataProducts.postValue(Resource.error(t.message.toString(), null, t))
             }

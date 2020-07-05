@@ -1,25 +1,18 @@
 package com.cuncis.bukatoko.data.api
 
-import com.cuncis.bukatoko.data.model.ProductDetailResponse
-import com.cuncis.bukatoko.data.model.ProductResponse
 import com.cuncis.bukatoko.data.model.Users
+import com.cuncis.bukatoko.data.new_model.Detail
 import com.cuncis.bukatoko.data.new_model.Product
-import kotlinx.coroutines.Deferred
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface TheShoppingApi {
-
-//    @GET("products")
-//    suspend fun getAllProducts(): Response<ProductResponse>
 
     @GET("products")
     suspend fun getAllProducts(): Product.Response
 
     @GET("product/{id}")
-        fun getProductById(@Path("id") productId: String
-    ): Call<ProductDetailResponse>
+    suspend fun getDetailProduct(@Path("id") productId: String): Detail.Response
 
     @FormUrlEncoded
     @POST("auth/login")

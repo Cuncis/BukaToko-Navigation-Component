@@ -15,11 +15,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.persistence.Cart
 import com.cuncis.bukatoko.data.local.persistence.CartViewModel
-import com.cuncis.bukatoko.data.model.Data
 import com.cuncis.bukatoko.data.model.Product
+import com.cuncis.bukatoko.data.new_model.Detail
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.Constants.TAG
+import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils
 import com.cuncis.bukatoko.util.Utils.Companion.getCurrentDate
 import com.cuncis.bukatoko.util.Utils.Companion.hideLoading
@@ -31,20 +32,22 @@ import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.SliderTypes.DefaultSliderView
 import kotlinx.android.synthetic.main.dialog_cart.view.*
 import kotlinx.android.synthetic.main.fragment_detail.*
+import org.koin.android.ext.android.inject
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private lateinit var detailViewModel: DetailViewModel
+//    private lateinit var detailViewModel: DetailViewModel
     private lateinit var productData: Product
     private lateinit var cartViewModel: CartViewModel
+
+    private val detailViewModel by inject<DetailViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
 
         productData = arguments?.getParcelable(Constants.PRODUCT_DETAIL_EXTRA)!!
-        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
 
         cartViewModel.getAllCarts().observe(requireActivity(), Observer {
@@ -90,24 +93,30 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
     private fun observeViewModel() {
-        detailViewModel.getProductById(productData.id.toString()).observe(viewLifecycleOwner, Observer { detail ->
-            setDetailData(detail.data)
-        })
-        detailViewModel.getMessage().observe(viewLifecycleOwner, Observer {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        })
-        detailViewModel.onLoading().observe(viewLifecycleOwner, Observer { loading ->
-            if (loading) {
-                layout_progressBar.showLoading(requireActivity())
-                linear_detail.hideView()
-            } else {
-                layout_progressBar.hideLoading(requireActivity())
-                linear_detail.showView()
+        detailViewModel.getDetailProduct(productData.id.toString())
+        detailViewModel.detailProduct.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { detail ->
+                        layout_progressBar.hideLoading(requireActivity())
+                        linear_detail.showView()
+                        setDetailData(detail)
+                    }
+                }
+                Status.ERROR -> {
+                    layout_progressBar.hideLoading(requireActivity())
+                    linear_detail.showView()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    layout_progressBar.showLoading(requireActivity())
+                    linear_detail.hideView()
+                }
             }
         })
     }
 
-    private fun setDetailData(detail: Data) {
+    private fun setDetailData(detail: Detail.Data) {
 
         tv_name.text = detail.product
         tv_price.text = Utils.rupiah(detail.price)

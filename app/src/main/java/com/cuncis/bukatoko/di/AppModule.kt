@@ -5,6 +5,7 @@ import com.cuncis.bukatoko.data.new_api.provideHttpLoggingInterceptor
 import com.cuncis.bukatoko.data.new_api.provideOkHttpClient
 import com.cuncis.bukatoko.data.new_repository.ApiRepoProduct
 import com.cuncis.bukatoko.ui.home.HomeViewModel
+import com.cuncis.bukatoko.ui.home.detail.DetailViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -21,4 +22,5 @@ val repoModule = module {
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get(), androidApplication()) }
+    viewModel { DetailViewModel(get(), androidApplication()) }
 }
