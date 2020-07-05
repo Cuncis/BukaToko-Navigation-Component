@@ -1,8 +1,8 @@
 package com.cuncis.bukatoko.data.api
 
-import com.cuncis.bukatoko.data.model.Users
 import com.cuncis.bukatoko.data.new_model.Detail
 import com.cuncis.bukatoko.data.new_model.Product
+import com.cuncis.bukatoko.data.new_model.User
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,16 +16,16 @@ interface TheShoppingApi {
 
     @FormUrlEncoded
     @POST("auth/login")
-    fun login(@Field("email") email: String,
-              @Field("password") password: String
-    ): Call<Users>
+    suspend fun login(@Field("email") email: String,
+                      @Field("password") password: String
+    ): User.Response
 
     @FormUrlEncoded
     @POST("auth/register")
     fun register(@Field("name") name: String,
                  @Field("email") email: String,
                  @Field("password") password: String
-    ): Call<Users>
+    ): Call<User.Response>
 
     @FormUrlEncoded
     @POST("auth/update/{id}")
@@ -33,6 +33,6 @@ interface TheShoppingApi {
                    @Field("name") name: String,
                    @Field("email") email: String,
                    @Field("password") password: String
-    ): Call<Users>
+    ): Call<User.Response>
 
 }
