@@ -5,27 +5,37 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Product
+import com.cuncis.bukatoko.databinding.ItemProductBinding
 import com.cuncis.bukatoko.util.Utils
 import com.cuncis.bukatoko.util.Utils.Companion.setImageFromUrl
 import com.cuncis.bukatoko.util.Utils.Companion.showView
 import kotlinx.android.synthetic.main.item_product.view.*
 
-class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+class HomeAdapter(private val productClickListener: OnProductClickListener): RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     private var productList: ArrayList<Product.Data> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
-        return HomeViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+            = HomeViewHolder(
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_product,
+            parent,
+            false
+        )
+    )
 
     override fun getItemCount(): Int = productList.size
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        holder.bind(productList[position])
+        holder.binding.product = productList[position]
+        holder.itemView.setOnClickListener {
+            productClickListener.onItemClick(productList[position])
+        }
     }
 
     fun setProductList(products: List<Product.Data>) {
@@ -34,21 +44,8 @@ class HomeAdapter(val productClickListener: OnProductClickListener): RecyclerVie
         notifyDataSetChanged()
     }
 
-    inner class HomeViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        var imgPoster: ImageView = view.img_product
-        var tvPrice: TextView = view.tv_price
-        var tvName: TextView = view.tv_name
-
-        fun bind(product: Product.Data) {
-            tvName.showView()
-            tvPrice.showView()
-            tvName.text = product.product
-            tvPrice.text = Utils.rupiah(product.price)
-            imgPoster.setImageFromUrl(product.image)
-            itemView.setOnClickListener {
-                 productClickListener.onItemClick(product)
-            }
-        }
+    inner class HomeViewHolder(val binding: ItemProductBinding)
+        : RecyclerView.ViewHolder(binding.root) {
     }
 
     interface OnProductClickListener {

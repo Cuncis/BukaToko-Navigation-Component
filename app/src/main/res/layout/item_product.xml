@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:layout_margin="8dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/img_product"
+    <data>
+        <import type="com.cuncis.bukatoko.util.RupiahHelper" />
+        <variable
+            name="product"
+            type="com.cuncis.bukatoko.data.model.Product.Data" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@color/colorGraySoft"
-        android:scaleType="centerCrop"/>
+        android:layout_margin="8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:gravity="end"
-        android:padding="5dp">
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@color/colorGraySoft"
+            android:scaleType="centerCrop"
+            app:image="@{product.image}"/>
 
-        <TextView
-            android:id="@+id/tv_price"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/harga"
-            android:textSize="18sp"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimary"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:gravity="end"
+            android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nama_produk"
-            android:textSize="14sp"
-            android:background="@color/colorWhite"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{RupiahHelper.rupiah(product.price)}"
+                android:textSize="18sp"
+                android:textColor="@color/colorWhite"
+                android:background="@color/colorPrimary"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:visibility="visible" />
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{product.product}"
+                android:textSize="14sp"
+                android:background="@color/colorWhite"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

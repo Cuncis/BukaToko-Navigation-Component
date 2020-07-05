@@ -1,6 +1,6 @@
 package com.cuncis.bukatoko.ui
 
-import android.content.DialogInterface
+
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,14 +17,13 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.navigation.NavGraph
-import androidx.navigation.fragment.findNavController
+import androidx.databinding.DataBindingUtil
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.DrawerState
 import kotlinx.android.synthetic.main.activity_shopping.*
-import kotlinx.android.synthetic.main.content_shopping.*
+
 
 class ShoppingActivity : AppCompatActivity() {
 
@@ -35,6 +34,7 @@ class ShoppingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shopping)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
         initNavigation()
 
         initDrawer()
