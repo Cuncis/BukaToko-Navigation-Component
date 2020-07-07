@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.request.RequestOptions
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.persistence.Cart
@@ -35,33 +36,31 @@ import org.koin.android.ext.android.inject
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-    private lateinit var productData: Product.Data
     private lateinit var cartViewModel: CartViewModel
 
     private val detailViewModel by inject<DetailViewModel>()
+
+    private val args: DetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
 
-        productData = arguments?.getParcelable(Constants.PRODUCT_DETAIL_EXTRA)!!
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
 
         cartViewModel.getAllCarts().observe(requireActivity(), Observer {
             Log.d(TAG, "onViewCreated: Cart DB: $it")
         })
 
-        view.apply {
-            observeViewModel()
-            initListener()
-        }
+        observeViewModel()
+        initListener()
     }
 
     private fun initListener() {
         btn_add_cart.setOnClickListener {
             val cart = Cart()
-            cart.productName = productData.product
-            cart.price = productData.price.toDouble()
+            cart.productName = args.product.product
+            cart.price = args.product.price.toDouble()
             cart.currentDate = getCurrentDate()
             Log.d(TAG, "initListener: Data Temp: $cart")
             cartViewModel.insertCart(cart)
@@ -90,7 +89,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
 
     private fun observeViewModel() {
-        detailViewModel.getDetailProduct(productData.id.toString())
+        detailViewModel.getDetailProduct(args.product.id.toString())
         detailViewModel.detailProduct.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -120,7 +119,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         if (detail.description.isNullOrEmpty()) {
             tv_description.text = getString(R.string.lorem_ipsumm)
         } else {
-            tv_description.text = productData.description
+            tv_description.text = detail.description
         }
 
         val imageList = ArrayList<String>()
@@ -132,14 +131,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         imageList.addAll(list)
 
-        val requestOptions = RequestOptions()
-            .placeholder(R.drawable.img_placeholder)
-            .error(R.drawable.img_placeholder_error)
-
         val sliderView = DefaultSliderView(requireContext())
         for (i in 0 until imageList.size) {
-            sliderView.setRequestOption(requestOptions)
-                .setProgressBarVisible(false)
+            sliderView.setProgressBarVisible(false)
                 .image(imageList[i])
             slider.addSlider(sliderView)
             Log.d(TAG, "setDetailData: ${imageList[i]}")

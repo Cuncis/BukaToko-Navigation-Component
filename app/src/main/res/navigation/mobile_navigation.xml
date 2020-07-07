@@ -74,6 +74,9 @@
         <action
             android:id="@+id/action_detailFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.cuncis.bukatoko.data.model.Product$Data" />
     </fragment>
     <fragment
         android:id="@+id/nav_profil"

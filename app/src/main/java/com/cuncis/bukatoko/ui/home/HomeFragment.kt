@@ -83,8 +83,10 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     }
 
     override fun onItemClick(product: Product.Data) {
-        val bundle = Bundle()
-        bundle.putParcelable(PRODUCT_DETAIL_EXTRA, product)
-        findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
+        val action = HomeFragmentDirections.actionNavHomeToDetailFragment(product)
+        findNavController().navigate(action)
+//        val bundle = Bundle()
+//        bundle.putParcelable(PRODUCT_DETAIL_EXTRA, product)
+//        findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
     }
 }
