@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.user.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -68,6 +69,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun initListener() {
         val userData = ShoppingPref.getUserData(requireContext())
+        Log.d("_log", "initListener: $userData")
         name = userData.name
         email = userData.email
 
