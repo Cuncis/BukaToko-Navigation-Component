@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.cuncis.bukatoko.R
-import com.cuncis.bukatoko.data.local.persistence.Cart
+import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.util.Utils.Companion.setImageFromUrl
 import kotlinx.android.synthetic.main.item_cart.view.*
 
@@ -27,6 +27,12 @@ class CartAdapter(val context: Context): RecyclerView.Adapter<CartAdapter.CartVi
         val cart = cartList[position]
         cart.qty = 1
         cart.total = cart.total
+    }
+
+    fun setCartList(newCartList: List<Cart>) {
+        cartList.clear()
+        cartList.addAll(newCartList)
+        notifyDataSetChanged()
     }
 
     inner class CartViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -49,9 +55,9 @@ class CartAdapter(val context: Context): RecyclerView.Adapter<CartAdapter.CartVi
             val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, arrayList)
             spinQty.adapter = adapter
 
-            spinQty.setOnItemClickListener { parent, view, position, id ->
-
-            }
+//            spinQty.setOnItemClickListener { parent, view, position, id ->
+//
+//            }
 
             btnDelete.setOnClickListener {
 

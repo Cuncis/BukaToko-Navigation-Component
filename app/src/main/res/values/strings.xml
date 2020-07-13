@@ -38,4 +38,5 @@
     <string name="go_to_payment">Go To Payment</string>
     <string name="go_to_cart">Go To Cart</string>
     <string name="pay_now">Pay Now</string>
+    <string name="cart_is_empty">Cart is Empty</string>
 </resources>

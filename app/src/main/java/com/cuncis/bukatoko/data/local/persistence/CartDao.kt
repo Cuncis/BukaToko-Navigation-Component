@@ -1,10 +1,9 @@
 package com.cuncis.bukatoko.data.local.persistence
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
+import com.cuncis.bukatoko.data.model.Cart
 
 @Dao
 interface CartDao {
@@ -13,6 +12,12 @@ interface CartDao {
     suspend fun addToCart(cart: Cart)
 
     @Query("SELECT * FROM cart_table")
-    fun getAllCarts(): LiveData<Cart>
+    fun getAllCarts(): LiveData<List<Cart>>
+
+    @Query("SELECT * FROM cart_table WHERE product_id = :productId")
+    fun getCartById(productId: Int): LiveData<Cart>
+
+    @Query("DELETE FROM cart_table")
+    suspend fun deleteCart()
 
 }

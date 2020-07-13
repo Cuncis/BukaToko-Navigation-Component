@@ -1,4 +1,4 @@
-package com.cuncis.bukatoko.data.local.persistence
+package com.cuncis.bukatoko.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

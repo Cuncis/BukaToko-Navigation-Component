@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
-import com.cuncis.bukatoko.data.model.UserData
 import com.cuncis.bukatoko.ui.user.UserViewModel
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideLoading
@@ -29,14 +28,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel(view)
+        observeViewModel()
 
         view.apply {
             initListener()
         }
     }
 
-    private fun observeViewModel(view: View) {
+    private fun observeViewModel() {
         userViewModel.userData.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {

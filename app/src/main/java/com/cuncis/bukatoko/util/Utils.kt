@@ -19,14 +19,8 @@ import java.util.regex.Pattern
 class Utils {
     companion object {
         fun ImageView.setImageFromUrl(url: String) {
-            val circularProgressDrawable = CircularProgressDrawable(this.context)
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
-            circularProgressDrawable.start()
             Glide.with(this)
                 .load(url)
-//                .centerCrop()
-//                .placeholder(circularProgressDrawable)
                 .into(this);
         }
 

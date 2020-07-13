@@ -11,15 +11,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.bumptech.glide.request.RequestOptions
 import com.cuncis.bukatoko.R
-import com.cuncis.bukatoko.data.local.persistence.Cart
+import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.data.local.persistence.CartViewModel
-import com.cuncis.bukatoko.data.model.Product
 import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.ui.ShoppingActivity
-import com.cuncis.bukatoko.util.Constants
 import com.cuncis.bukatoko.util.Constants.TAG
+import com.cuncis.bukatoko.util.Dialogs.dialogAlert
+import com.cuncis.bukatoko.util.Dialogs.dialogCustomCart
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils
 import com.cuncis.bukatoko.util.Utils.Companion.getCurrentDate
@@ -47,10 +46,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
 
         cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
-
-        cartViewModel.getAllCarts().observe(requireActivity(), Observer {
-            Log.d(TAG, "onViewCreated: Cart DB: $it")
-        })
+        Log.d(TAG, "onViewCreated: ${args.product.id}")
 
         observeViewModel()
         initListener()
@@ -58,13 +54,20 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun initListener() {
         btn_add_cart.setOnClickListener {
-            val cart = Cart()
-            cart.productName = args.product.product
-            cart.price = args.product.price.toDouble()
-            cart.currentDate = getCurrentDate()
-            Log.d(TAG, "initListener: Data Temp: $cart")
-            cartViewModel.insertCart(cart)
-            showCartDialog()
+            cartViewModel.getCartById(args.product.id).observe(viewLifecycleOwner, Observer {
+                if (it != null) {
+                    Toast.makeText(requireContext(), "Product is Exist", Toast.LENGTH_SHORT).show()
+                } else {
+                    val cart = Cart()
+                    cart.productId = args.product.id
+                    cart.productName = args.product.product
+                    cart.price = args.product.price.toDouble()
+                    cart.imageUrl = args.product.image
+                    cart.currentDate = getCurrentDate()
+                    cartViewModel.insertCart(cart)
+                    this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment, 0)
+                }
+            })
         }
     }
 
