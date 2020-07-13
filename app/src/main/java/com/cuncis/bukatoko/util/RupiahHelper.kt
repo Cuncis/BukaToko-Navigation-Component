@@ -9,4 +9,10 @@ object RupiahHelper {
         val numberFormat: NumberFormat = NumberFormat.getInstance(Locale.GERMANY)
         return numberFormat.format(number)
     }
+
+    @JvmStatic
+    fun rupiah(number: Double): String? {
+        val numberFormat: NumberFormat = NumberFormat.getInstance(Locale.GERMANY)
+        return numberFormat.format(number)
+    }
 }

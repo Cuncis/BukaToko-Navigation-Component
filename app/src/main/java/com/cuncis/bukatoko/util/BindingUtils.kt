@@ -1,10 +1,11 @@
 package com.cuncis.bukatoko.util
 
-import android.widget.ImageView
+import android.view.View
+import android.widget.*
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ObservableField
 import com.bumptech.glide.Glide
-import java.text.NumberFormat
-import java.util.*
+import com.cuncis.bukatoko.ui.cart.Item
 
 
 @BindingAdapter("image")
@@ -14,10 +15,12 @@ fun loadImage(view: ImageView, url: String) {
         .into(view)
 }
 
-fun String.rupiah(): String {
-    if (this.isNotEmpty()) {
-        val numberFormat: NumberFormat = NumberFormat.getInstance(Locale.GERMANY)
-        return numberFormat.format(numberFormat)
+@BindingAdapter("default_spinner_value")
+fun defaultValueSpinner(spinner: Spinner, value: String) {
+    val arrayList = arrayListOf<Int>()
+    for (i in value.toInt()..50) {
+        arrayList.add(i)
     }
-    return ""
+    val adapter = ArrayAdapter(spinner.context, android.R.layout.simple_spinner_item, arrayList)
+    spinner.adapter = adapter
 }

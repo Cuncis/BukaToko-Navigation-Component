@@ -19,7 +19,7 @@ data class Cart(
     var price: Double = 0.0,
 
     @ColumnInfo(name = "qty")
-    var qty: Int = 0,
+    var qty: Int = 1,
 
     @ColumnInfo(name = "total")
     var total: Double = 0.0,

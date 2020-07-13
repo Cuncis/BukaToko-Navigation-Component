@@ -13,11 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
-import com.cuncis.bukatoko.data.local.persistence.CartViewModel
+import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants.TAG
-import com.cuncis.bukatoko.util.Dialogs.dialogAlert
 import com.cuncis.bukatoko.util.Dialogs.dialogCustomCart
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils
