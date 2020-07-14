@@ -3,6 +3,7 @@ package com.cuncis.bukatoko.ui.home.detail
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -42,7 +43,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
 
         Log.d(TAG, "onViewCreated: ${args.product.id}")
@@ -64,7 +65,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     cart.imageUrl = args.product.image
                     cart.currentDate = getCurrentDate()
                     cartViewModel.insertCart(cart)
-                    this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment, 0)
+                    this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment)
                 }
             })
         }
@@ -147,5 +148,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         slider.setDuration(4000)
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
+    }
 
 }

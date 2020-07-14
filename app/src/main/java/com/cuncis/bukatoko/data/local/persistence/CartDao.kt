@@ -20,7 +20,7 @@ interface CartDao {
     @Query("DELETE FROM cart_table")
     suspend fun deleteCart()
 
-//    @Delete
-//    fun deleteCartById(productId: Int): LiveData<Cart>
+    @Query("DELETE FROM cart_table WHERE product_id = :productId")
+    suspend fun deleteCartById(productId: Int)
 
 }

@@ -3,6 +3,7 @@ package com.cuncis.bukatoko.ui.cart
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.data.repository.DbRepoCart
@@ -28,9 +29,9 @@ class CartViewModel(private val repository: DbRepoCart, application: Application
         return repository.getCartById(productId)
     }
 
-//    fun deleteCartById(productId: Int) = viewModelScope.launch(Dispatchers.IO) {
-//        repository.deleteCartById(productId)
-//    }
+    fun deleteCartById(productId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteCartById(productId)
+    }
 
 
 }

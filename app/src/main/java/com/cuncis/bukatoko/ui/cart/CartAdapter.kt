@@ -31,7 +31,7 @@ class CartAdapter(val onItemSelectedListener: OnItemSelectedListener) : Recycler
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
         holder.binding.cart = cartList[position]
         holder.binding.btnDelete.setOnClickListener {
-            Toast.makeText(holder.itemView.context, cartList[position].productName, Toast.LENGTH_SHORT).show()
+            onItemSelectedListener.onItemDeleted(position)
         }
         holder.binding.spinQty.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) { }
@@ -51,10 +51,22 @@ class CartAdapter(val onItemSelectedListener: OnItemSelectedListener) : Recycler
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int) {
+        cartList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, cartList.size)
+    }
+
+    fun clearCart() {
+        cartList.clear()
+        notifyDataSetChanged()
+    }
+
     inner class CartViewHolder(val binding: ItemCartBinding)
         : RecyclerView.ViewHolder(binding.root)
 
     interface OnItemSelectedListener {
         fun onItemSelected(cartList: ArrayList<Cart>, position: Int, total: Double)
+        fun onItemDeleted(position: Int)
     }
 }

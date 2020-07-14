@@ -18,4 +18,6 @@ class DbRepoCart(private val cartDao: CartDao) {
 
     suspend fun deleteCart() = cartDao.deleteCart()
 
+    suspend fun deleteCartById(productId: Int) = cartDao.deleteCartById(productId)
+
 }
