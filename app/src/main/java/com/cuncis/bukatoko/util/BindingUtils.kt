@@ -1,11 +1,8 @@
 package com.cuncis.bukatoko.util
 
-import android.view.View
 import android.widget.*
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ObservableField
 import com.bumptech.glide.Glide
-import com.cuncis.bukatoko.ui.cart.Item
 
 
 @BindingAdapter("image")

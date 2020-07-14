@@ -21,4 +21,8 @@ class CartDbRepository(application: Application) {
 
     suspend fun deleteCart() = cartDao.deleteCart()
 
+//    fun deleteCartById(productId: Int): LiveData<Cart> {
+//        return cartDao.deleteCartById(productId)
+//    }
+
 }

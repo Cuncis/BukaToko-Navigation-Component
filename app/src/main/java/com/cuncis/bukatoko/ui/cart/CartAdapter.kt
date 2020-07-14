@@ -1,6 +1,6 @@
 package com.cuncis.bukatoko.ui.cart
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +11,8 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.databinding.ItemCartBinding
 import com.cuncis.bukatoko.util.RupiahHelper
-import com.cuncis.bukatoko.util.Utils.Companion.setImageFromUrl
-import kotlinx.android.synthetic.main.item_cart.view.*
 
-class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(val onItemSelectedListener: OnItemSelectedListener) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     private var cartList = ArrayList<Cart>()
 
@@ -39,10 +37,11 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
             override fun onNothingSelected(parent: AdapterView<*>?) { }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-                val qty = parent?.getItemAtPosition(pos).toString().toInt()
-                holder.binding.tvTotal.text = RupiahHelper.rupiah((qty * cartList[position].price))
+                val qty = parent?.selectedItem.toString().toInt()
+                val total = qty * cartList[position].price
+                holder.binding.tvTotal.text = RupiahHelper.rupiah(total)
+                onItemSelectedListener.onItemSelected(cartList, position, cartList[position].productId, total)
             }
-
         }
     }
 
@@ -54,4 +53,8 @@ class CartAdapter : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     inner class CartViewHolder(val binding: ItemCartBinding)
         : RecyclerView.ViewHolder(binding.root)
+
+    interface OnItemSelectedListener {
+        fun onItemSelected(cartList: ArrayList<Cart>, position: Int, productId: Int, total: Double)
+    }
 }

@@ -5,7 +5,6 @@
 
     <data>
         <import type="com.cuncis.bukatoko.util.RupiahHelper" />
-        <import type="com.cuncis.bukatoko.ui.cart.Item" />
         <variable
             name="cart"
             type="com.cuncis.bukatoko.data.model.Cart" />
