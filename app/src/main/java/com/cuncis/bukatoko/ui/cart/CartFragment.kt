@@ -22,6 +22,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelecte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(false)
 
         cartAdapter = CartAdapter(this)
         rv_cart.adapter = cartAdapter
@@ -36,7 +37,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelecte
         })
     }
 
-    override fun onItemSelected(cartList: ArrayList<Cart>, position: Int, productId: Int, total: Double) {
+    override fun onItemSelected(cartList: ArrayList<Cart>, position: Int, total: Double) {
         var priceTotal = 0.0
         cartList[position].total = total
 

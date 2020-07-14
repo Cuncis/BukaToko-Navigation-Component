@@ -40,7 +40,7 @@ class CartAdapter(val onItemSelectedListener: OnItemSelectedListener) : Recycler
                 val qty = parent?.selectedItem.toString().toInt()
                 val total = qty * cartList[position].price
                 holder.binding.tvTotal.text = RupiahHelper.rupiah(total)
-                onItemSelectedListener.onItemSelected(cartList, position, cartList[position].productId, total)
+                onItemSelectedListener.onItemSelected(cartList, position, total)
             }
         }
     }
@@ -55,6 +55,6 @@ class CartAdapter(val onItemSelectedListener: OnItemSelectedListener) : Recycler
         : RecyclerView.ViewHolder(binding.root)
 
     interface OnItemSelectedListener {
-        fun onItemSelected(cartList: ArrayList<Cart>, position: Int, productId: Int, total: Double)
+        fun onItemSelected(cartList: ArrayList<Cart>, position: Int, total: Double)
     }
 }
