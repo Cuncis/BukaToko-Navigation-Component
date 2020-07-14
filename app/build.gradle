@@ -90,10 +90,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.4.3'
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
-    // shimmer
-    implementation 'io.supercharge:shimmerlayout:2.1.0'
-    implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
-
     //koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-scope:$koin_version"

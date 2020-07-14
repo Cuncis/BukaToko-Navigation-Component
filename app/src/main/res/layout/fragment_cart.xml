@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.cart.CartFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:id="@+id/rv_cart"/>
+        tools:context=".ui.cart.CartFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_messageEmpty"
-        android:text="@string/cart_is_empty"
-        android:layout_centerInParent="true"
-        android:textSize="18sp"
-        android:visibility="gone"/>
-
-    <LinearLayout
-        android:id="@+id/linearLayout_cart"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:padding="16dp">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/rv_cart" />
 
         <TextView
-            android:id="@+id/tv_price_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_messageEmpty"
+            android:text="@string/cart_is_empty"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TOTAL: Rp. 0"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"/>
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:padding="16dp">
 
-        <Button
-            android:id="@+id/btn_checkout"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/custom_button"
-            android:layout_marginTop="10dp"
-            android:text="@string/pay_now"
-            android:textColor="@color/colorWhite"/>
+            <TextView
+                android:id="@+id/tv_price_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_rp_0"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite" />
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_checkout"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/custom_button"
+                android:layout_marginTop="10dp"
+                android:text="@string/pay_now"
+                android:textColor="@color/colorWhite" />
 
-</RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

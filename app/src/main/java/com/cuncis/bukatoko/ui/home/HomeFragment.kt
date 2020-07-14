@@ -1,6 +1,6 @@
 package com.cuncis.bukatoko.ui.home
 
-import android.content.Context
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Product
 import com.cuncis.bukatoko.databinding.FragmentHomeBinding
-import com.cuncis.bukatoko.util.Constants.PRODUCT_DETAIL_EXTRA
 import com.cuncis.bukatoko.util.Status
 import org.koin.android.ext.android.inject
 

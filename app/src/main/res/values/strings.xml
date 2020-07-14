@@ -42,4 +42,5 @@
     <string name="total">total</string>
     <string name="price">price</string>
     <string name="total_cart">TOTAL : Rp %s</string>
+    <string name="total_rp_0">TOTAL: Rp. 0</string>
 </resources>

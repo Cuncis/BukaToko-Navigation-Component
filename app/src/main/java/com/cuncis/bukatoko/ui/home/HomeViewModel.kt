@@ -12,6 +12,10 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val apiRepoProduct: ApiRepoProduct, application: Application)
     : AndroidViewModel(application) {
 
+//    init {
+//        getAllProducts()
+//    }
+
     private val _dataProducts = MutableLiveData<Resource<Product.Response>>()
     val dataProducts: MutableLiveData<Resource<Product.Response>>
         get() = _dataProducts
