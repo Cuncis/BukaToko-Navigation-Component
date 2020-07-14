@@ -13,12 +13,14 @@ import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.RupiahHelper
 import com.cuncis.bukatoko.util.Utils.Companion.showView
 import kotlinx.android.synthetic.main.fragment_cart.*
+import org.koin.android.ext.android.inject
 
 
 class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelectedListener {
 
-    private lateinit var cartViewModel: CartViewModel
     private lateinit var cartAdapter: CartAdapter
+
+    private val cartViewModel by inject<CartViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,7 +29,6 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelecte
         cartAdapter = CartAdapter(this)
         rv_cart.adapter = cartAdapter
 
-        cartViewModel = ViewModelProvider(requireActivity()).get(CartViewModel::class.java)
         cartViewModel.getAllCarts().observe(viewLifecycleOwner, Observer {
             if (it.isEmpty()) {
                 tv_messageEmpty.showView()

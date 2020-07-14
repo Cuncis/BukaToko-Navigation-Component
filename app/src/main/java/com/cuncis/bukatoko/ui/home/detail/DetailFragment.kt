@@ -34,9 +34,9 @@ import org.koin.android.ext.android.inject
 
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
-    private lateinit var cartViewModel: CartViewModel
 
     private val detailViewModel by inject<DetailViewModel>()
+    private val cartViewModel by inject<CartViewModel>()
 
     private val args: DetailFragmentArgs by navArgs()
 
@@ -45,7 +45,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         setHasOptionsMenu(false)
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
 
-        cartViewModel = ViewModelProvider(this).get(CartViewModel::class.java)
         Log.d(TAG, "onViewCreated: ${args.product.id}")
 
         observeViewModel()

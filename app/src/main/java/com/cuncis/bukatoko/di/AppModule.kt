@@ -3,7 +3,11 @@ package com.cuncis.bukatoko.di
 import com.cuncis.bukatoko.data.api.provideClientProduct
 import com.cuncis.bukatoko.data.api.provideHttpLoggingInterceptor
 import com.cuncis.bukatoko.data.api.provideOkHttpClient
+import com.cuncis.bukatoko.data.local.persistence.CartDao
+import com.cuncis.bukatoko.data.local.persistence.ShoppingDatabase
 import com.cuncis.bukatoko.data.repository.ApiRepoProduct
+import com.cuncis.bukatoko.data.repository.DbRepoCart
+import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.ui.home.HomeViewModel
 import com.cuncis.bukatoko.ui.home.detail.DetailViewModel
 import com.cuncis.bukatoko.ui.user.UserViewModel
@@ -19,10 +23,18 @@ val appModule = module {
 
 val repoModule = module {
     factory { ApiRepoProduct(get()) }
+    factory { DbRepoCart(get()) }
+}
+
+val localModule = module {
+    fun cartDao(database: ShoppingDatabase): CartDao = database.cartDao()
+    single { ShoppingDatabase.getDatabase(androidApplication()) }
+    single { cartDao(get()) }
 }
 
 val viewModelModule = module {
     viewModel { HomeViewModel(get(), androidApplication()) }
     viewModel { DetailViewModel(get(), androidApplication()) }
     viewModel { UserViewModel(get()) }
+    viewModel { CartViewModel(get(), androidApplication()) }
 }
