@@ -1,8 +1,5 @@
 package com.cuncis.bukatoko.data.model
 
-
-import com.google.gson.annotations.SerializedName
-
 object Cost {
     data class Response(
         val rajaongkir: Rajaongkir

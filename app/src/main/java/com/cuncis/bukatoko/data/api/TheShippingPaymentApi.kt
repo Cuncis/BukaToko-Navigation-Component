@@ -1,5 +1,6 @@
 package com.cuncis.bukatoko.data.api
 
+import com.cuncis.bukatoko.BuildConfig
 import com.cuncis.bukatoko.data.model.City
 import com.cuncis.bukatoko.data.model.Cost
 import retrofit2.http.*
@@ -7,15 +8,16 @@ import retrofit2.http.*
 interface TheShippingPaymentApi {
 
     @GET("city")
-    suspend fun getCities(@Query("key") key: String): City.Response
+    suspend fun getCities(@Query("key") key: String = BuildConfig.KEY_RAJAONGKIR)
+            : City.Response
 
     @FormUrlEncoded
     @POST("cost")
-    suspend fun getCost(@Field("key") key: String,
-                        @Field("origin") origin: String,
+    suspend fun getCost(@Field("origin") origin: String,
                         @Field("destination") destination: String,
                         @Field("weight") weight: String,
-                        @Field("courier") courier: String
+                        @Field("courier") courier: String,
+                        @Field("key") key: String = BuildConfig.KEY_RAJAONGKIR
     ): Cost.Response
 
 }

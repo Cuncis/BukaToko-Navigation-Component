@@ -49,8 +49,9 @@
     <string name="continue_transaction">Continue Transaction</string>
     <string name="back_to_cart">Back to Cart</string>
     <string name="send_proof_of_payment">Send proof of payment</string>
-    <string name="desc_et_address">Tulis alamat lengkap, seperti nama jalan dan kodepos ..</string>
+    <string name="desc_et_address">Full address as street name and post code ..</string>
     <string name="destination">Destination</string>
     <string name="origin">Origin</string>
     <string name="service_delivery">Service Delivery</string>
+    <string name="city">City</string>
 </resources>

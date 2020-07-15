@@ -51,7 +51,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelecte
         })
 
         binding.btnCheckout.setOnClickListener {
-            findNavController().navigate(R.id.action_cartFragment_self)
+            findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
         }
     }
 

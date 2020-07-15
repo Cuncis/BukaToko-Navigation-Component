@@ -17,7 +17,7 @@ import com.cuncis.bukatoko.databinding.FragmentHomeBinding
 import com.cuncis.bukatoko.util.Status
 import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment(R.layout.fragment_home),
+class HomeFragment : Fragment(),
     HomeAdapter.OnProductClickListener {
 
     private lateinit var homeAdapter: HomeAdapter
@@ -85,8 +85,5 @@ class HomeFragment : Fragment(R.layout.fragment_home),
     override fun onItemClick(product: Product.Data) {
         val action = HomeFragmentDirections.actionNavHomeToDetailFragment(product)
         findNavController().navigate(action)
-//        val bundle = Bundle()
-//        bundle.putParcelable(PRODUCT_DETAIL_EXTRA, product)
-//        findNavController().navigate(R.id.action_nav_home_to_detailFragment, bundle)
     }
 }
