@@ -17,6 +17,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "BASE_URL", "\"https://greendeahan.com/bukafutsal/bukafutsal_2/public/api/\""
+        buildConfigField "String", "RAJA_ONGKIR_URL", "\"https://api.rajaongkir.com/starter/\""
+        buildConfigField "String", "KEY_RAJAONGKIR", "\"375e5d428688260b2740d42192ff2f46\""
     }
 
     buildTypes {

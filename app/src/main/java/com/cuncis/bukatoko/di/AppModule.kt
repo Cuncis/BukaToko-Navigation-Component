@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.di
 
 import com.cuncis.bukatoko.data.api.provideClientProduct
+import com.cuncis.bukatoko.data.api.provideClientRajaOngkir
 import com.cuncis.bukatoko.data.api.provideHttpLoggingInterceptor
 import com.cuncis.bukatoko.data.api.provideOkHttpClient
 import com.cuncis.bukatoko.data.local.persistence.CartDao
@@ -19,6 +20,7 @@ val appModule = module {
     factory { provideHttpLoggingInterceptor() }
     factory { provideOkHttpClient() }
     factory { provideClientProduct(get()) }
+    factory { provideClientRajaOngkir(get()) }
 }
 
 val repoModule = module {

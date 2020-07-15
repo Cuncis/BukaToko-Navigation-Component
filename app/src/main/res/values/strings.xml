@@ -43,4 +43,14 @@
     <string name="price">price</string>
     <string name="total_cart">TOTAL : Rp %s</string>
     <string name="total_rp_0">TOTAL: Rp. 0</string>
+    <string name="desc_tf">make a payment soon to No. Rekening Bank BRI 1234567890 a.n PT Green Deahan</string>
+    <string name="send_later">Send Later</string>
+    <string name="shipping_payment">Shipping Payment</string>
+    <string name="continue_transaction">Continue Transaction</string>
+    <string name="back_to_cart">Back to Cart</string>
+    <string name="send_proof_of_payment">Send proof of payment</string>
+    <string name="desc_et_address">Tulis alamat lengkap, seperti nama jalan dan kodepos ..</string>
+    <string name="destination">Destination</string>
+    <string name="origin">Origin</string>
+    <string name="service_delivery">Service Delivery</string>
 </resources>

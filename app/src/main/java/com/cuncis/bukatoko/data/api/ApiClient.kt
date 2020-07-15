@@ -31,3 +31,12 @@ fun provideClientProduct(okHttpClient: OkHttpClient): TheShoppingApi {
         .build()
         .create(TheShoppingApi::class.java)
 }
+
+fun provideClientRajaOngkir(okHttpClient: OkHttpClient): TheShippingPaymentApi {
+    return Retrofit.Builder()
+        .baseUrl(BuildConfig.RAJA_ONGKIR_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(TheShippingPaymentApi::class.java)
+}
