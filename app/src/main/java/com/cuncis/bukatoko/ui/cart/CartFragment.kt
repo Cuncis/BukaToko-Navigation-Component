@@ -62,6 +62,7 @@ class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelecte
         builder.setPositiveButton("Yes") { dialog, _ ->
             cartViewModel.deleteCart()
             cartAdapter.clearCart()
+            findNavController().navigate(R.id.action_cartFragment_self)
             dialog.dismiss()
         }
         builder.setNegativeButton("No") { dialog, _ ->

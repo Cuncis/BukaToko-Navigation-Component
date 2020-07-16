@@ -2,6 +2,7 @@ package com.cuncis.bukatoko.ui.notification
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -19,6 +20,7 @@ class NotificationFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         notificationViewModel =
                 ViewModelProvider(this).get(NotificationViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notification, container, false)
@@ -27,5 +29,10 @@ class NotificationFragment : Fragment() {
             textView.text = it
         })
         return root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 }

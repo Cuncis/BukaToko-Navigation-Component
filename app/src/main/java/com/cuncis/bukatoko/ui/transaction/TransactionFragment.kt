@@ -2,6 +2,7 @@ package com.cuncis.bukatoko.ui.transaction
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -19,6 +20,8 @@ class TransactionFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
         transactionViewModel =
                 ViewModelProvider(this).get(TransactionViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_transaction, container, false)
@@ -27,5 +30,10 @@ class TransactionFragment : Fragment() {
             textView.text = it
         })
         return root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 }

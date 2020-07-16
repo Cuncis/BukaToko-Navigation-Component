@@ -3,6 +3,7 @@ package com.cuncis.bukatoko.util
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.ui.cart.CartViewModel
 import kotlinx.android.synthetic.main.dialog_cart.view.*
+import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 object Dialogs {
     fun Fragment.dialogSample(message: String, resId: Int) {

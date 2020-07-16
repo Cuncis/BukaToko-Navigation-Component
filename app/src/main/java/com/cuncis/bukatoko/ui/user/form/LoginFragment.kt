@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.user.form
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -26,7 +27,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         (requireActivity() as ShoppingActivity).title = "Login"
+
 
         observeViewModel(view)
 
@@ -81,5 +84,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         btn_register.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 }

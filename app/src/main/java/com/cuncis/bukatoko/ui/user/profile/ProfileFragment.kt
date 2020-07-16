@@ -2,6 +2,7 @@ package com.cuncis.bukatoko.ui.user.profile
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -27,6 +28,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         observeViewModel()
 
@@ -124,5 +126,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         linear_data.showView()
         linear_edit.hideView()
         edit = true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 }

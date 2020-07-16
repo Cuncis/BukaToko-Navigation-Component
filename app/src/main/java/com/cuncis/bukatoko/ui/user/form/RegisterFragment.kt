@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.user.form
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -24,6 +25,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         (requireActivity() as ShoppingActivity).title = "Register"
 
         observeViewModel(view)
@@ -72,5 +74,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 }
             }
         }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
     }
 }
