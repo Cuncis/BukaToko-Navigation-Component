@@ -1,102 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.detail.DetailFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
+    <data>
+        <import type="com.cuncis.bukatoko.util.RupiahHelper" />
+        <variable
+            name="listener"
+            type="com.cuncis.bukatoko.ui.home.detail.DetailFragment" />
+        <variable
+            name="detail"
+            type="com.cuncis.bukatoko.data.model.Detail.Data" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.home.detail.DetailFragment">
 
-        <LinearLayout
-            android:id="@+id/linear_detail"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
+                android:id="@+id/linear_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp">
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:background="@color/colorGraySoft"
+                            app:image="@{String.valueOf(detail.images[0].image)}"
+                            android:scaleType="centerCrop"/>
+
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/nama_produk"
+                            android:text="@{detail.product}"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:padding="10dp" />
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/price"
+                            android:text="@{`Rp ` + RupiahHelper.rupiah(detail.price)}"
+                            android:textSize="22sp"
+                            android:textColor="@color/colorPrimary"
+                            android:textStyle="bold"
+                            android:padding="10dp"
+                            android:gravity="end" />
+
+                        <TextView
+                            android:id="@+id/tv_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:text="@string/lorem_ipsumm"
+                            android:text="@{detail.description == null ? @string/lorem_ipsumm : detail.description}"
+                            android:padding="10dp" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
 
-                    <com.glide.slider.library.SliderLayout
-                        android:id="@+id/slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:background="@color/colorGraySoft"/>
+                    <ImageButton
+                        android:layout_weight="1"
+                        android:id="@+id/btn_add_cart"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/custom_button"
+                        android:src="@drawable/ic_add_cart"
+                        android:layout_marginEnd="5dp"
+                        android:onClick="@{listener::onClick}"/>
 
-                    <TextView
-                        android:id="@+id/tv_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsum"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        android:padding="10dp"/>
-
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsum"
-                        android:textSize="22sp"
-                        android:textColor="@color/colorPrimary"
-                        android:textStyle="bold"
-                        android:padding="10dp"
-                        android:gravity="end"/>
-
-                    <TextView
-                        android:id="@+id/tv_description"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/lorem_ipsumm"
-                        android:padding="10dp"/>
+                    <Button
+                        android:id="@+id/btn_checkout"
+                        android:layout_weight="3"
+                        android:layout_width="0dp"
+                        android:background="@drawable/custom_button"
+                        android:textColor="@color/colorWhite"
+                        android:layout_height="40dp"
+                        android:text="@string/buy_now"
+                        android:onClick="@{listener::onClick}"/>
                 </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
-
-                <ImageButton
-                    android:layout_weight="1"
-                    android:id="@+id/btn_add_cart"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/custom_button"
-                    android:src="@drawable/ic_add_cart"
-                    android:layout_marginRight="5dp"/>
-
-                <Button
-                    android:id="@+id/btn_checkout"
-                    android:layout_weight="3"
-                    android:layout_width="0dp"
-                    android:background="@drawable/custom_button"
-                    android:textColor="@color/colorWhite"
-                    android:layout_height="40dp"
-                    android:text="@string/buy_now"/>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
 
-    <include
-        android:id="@+id/layout_progressBar"
-        layout="@layout/layout_loading"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+        <include
+            android:id="@+id/layout_progressBar"
+            layout="@layout/layout_loading"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

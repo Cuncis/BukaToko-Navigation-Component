@@ -109,6 +109,9 @@ class CheckoutFragment : Fragment() {
                 Status.LOADING -> { }
             }
         })
+//        checkoutViewModel.city.observe(viewLifecycleOwner, Observer {
+//            binding.etOrigin.setText(it)
+//        })
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

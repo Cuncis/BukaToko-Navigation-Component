@@ -5,17 +5,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.data.model.Detail
+import com.cuncis.bukatoko.databinding.FragmentDetailBinding
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Dialogs.dialogCustomCart
@@ -30,30 +32,71 @@ import com.glide.slider.library.Animations.DescriptionAnimation
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.SliderTypes.DefaultSliderView
 import kotlinx.android.synthetic.main.dialog_cart.view.*
-import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.ext.android.inject
 
 
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment(), View.OnClickListener {
 
     private val detailViewModel by inject<DetailViewModel>()
     private val cartViewModel by inject<CartViewModel>()
 
     private val args: DetailFragmentArgs by navArgs()
 
+    private lateinit var binding: FragmentDetailBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_detail, container, false
+        )
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
+        binding.listener = this
 
         Log.d(TAG, "onViewCreated: ${args.product.id}")
 
         observeViewModel()
-        initListener()
     }
 
-    private fun initListener() {
-        btn_add_cart.setOnClickListener {
+    private fun observeViewModel() {
+        detailViewModel.getDetailProduct(args.product.id.toString())
+        detailViewModel.detailProduct.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    it.data?.data?.let { detail ->
+                        binding.layoutProgressBar.hideLoading(requireActivity())
+                        binding.linearDetail.showView()
+                        binding.detail = detail
+                    }
+                }
+                Status.ERROR -> {
+                    binding.layoutProgressBar.hideLoading(requireActivity())
+                    binding.linearDetail.showView()
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    binding.layoutProgressBar.showLoading(requireActivity())
+                    binding.linearDetail.hideView()
+                }
+            }
+        })
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_cart).isVisible = false
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.id == R.id.btn_add_cart) {
             cartViewModel.getCartById(args.product.id).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     Toast.makeText(requireContext(), "Product is Exist", Toast.LENGTH_SHORT).show()
@@ -68,89 +111,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                     this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment)
                 }
             })
+        } else if (v?.id == R.id.btn_checkout) {
+            Toast.makeText(requireContext(), "Checkout", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private fun showCartDialog() {
-        val builder = AlertDialog.Builder(requireContext())
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_cart, null)
-        builder.setView(view)
-        val dialog = builder.create()
-        view.apply {
-            btn_cart.setOnClickListener {
-                findNavController().navigate(R.id.action_detailFragment_to_cartFragment)
-                dialog.dismiss()
-            }
-
-            btn_pay.setOnClickListener {
-                Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-        }
-        dialog.show()
-    }
-
-
-    private fun observeViewModel() {
-        detailViewModel.getDetailProduct(args.product.id.toString())
-        detailViewModel.detailProduct.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    it.data?.data?.let { detail ->
-                        layout_progressBar.hideLoading(requireActivity())
-                        linear_detail.showView()
-                        setDetailData(detail)
-                    }
-                }
-                Status.ERROR -> {
-                    layout_progressBar.hideLoading(requireActivity())
-                    linear_detail.showView()
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                }
-                Status.LOADING -> {
-                    layout_progressBar.showLoading(requireActivity())
-                    linear_detail.hideView()
-                }
-            }
-        })
-    }
-
-    private fun setDetailData(detail: Detail.Data) {
-
-        tv_name.text = detail.product
-        tv_price.text = Utils.rupiah(detail.price)
-        if (detail.description.isNullOrEmpty()) {
-            tv_description.text = getString(R.string.lorem_ipsumm)
-        } else {
-            tv_description.text = detail.description
-        }
-
-        val imageList = ArrayList<String>()
-        val list = ArrayList<String>()
-
-        for (img in detail.images) {
-            list.add(img.image)
-        }
-
-        imageList.addAll(list)
-
-        val sliderView = DefaultSliderView(requireContext())
-        for (i in 0 until imageList.size) {
-            sliderView.setProgressBarVisible(false)
-                .image(imageList[i])
-            slider.addSlider(sliderView)
-            Log.d(TAG, "setDetailData: ${imageList[i]}")
-        }
-
-        slider.setPresetTransformer(SliderLayout.Transformer.Accordion)
-        slider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom)
-        slider.setCustomAnimation(DescriptionAnimation())
-        slider.setDuration(4000)
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.action_cart).isVisible = false
-        super.onPrepareOptionsMenu(menu)
     }
 
 }

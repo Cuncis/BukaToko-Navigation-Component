@@ -16,7 +16,7 @@ import com.cuncis.bukatoko.util.Utils.Companion.showView
 import org.koin.android.ext.android.inject
 
 
-class CartFragment : Fragment(R.layout.fragment_cart), CartAdapter.OnItemSelectedListener {
+class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
 
     private lateinit var cartAdapter: CartAdapter
     private var carts = arrayListOf<Cart>()
