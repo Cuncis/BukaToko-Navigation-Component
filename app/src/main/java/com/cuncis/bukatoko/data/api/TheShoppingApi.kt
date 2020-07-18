@@ -2,6 +2,7 @@ package com.cuncis.bukatoko.data.api
 
 import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.data.model.Product
+import com.cuncis.bukatoko.data.model.TransactionData
 import com.cuncis.bukatoko.data.model.User
 import retrofit2.Call
 import retrofit2.http.*
@@ -34,5 +35,9 @@ interface TheShoppingApi {
                    @Field("email") email: String,
                    @Field("password") password: String
     ): User.Response
+
+    @POST("transaction")
+    suspend fun postTransaction(@Body transactionData: TransactionData.Data)
+            : TransactionData.Data
 
 }

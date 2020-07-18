@@ -55,4 +55,6 @@
     <string name="service_delivery">Service Delivery</string>
     <string name="city">City</string>
     <string name="desc_address">Surabaya - Benowo, Jawa timur 60197</string>
+    <string name="rp_0">Rp 0</string>
+    <string name="tv_ongkir">Rp %s</string>
 </resources>

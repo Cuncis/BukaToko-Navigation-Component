@@ -13,7 +13,7 @@ interface TheShippingPaymentApi {
 
     @FormUrlEncoded
     @POST("cost")
-    suspend fun getCost(@Field("origin") origin: String,
+    suspend fun postCost(@Field("origin") origin: String,
                         @Field("destination") destination: String,
                         @Field("weight") weight: String,
                         @Field("courier") courier: String,

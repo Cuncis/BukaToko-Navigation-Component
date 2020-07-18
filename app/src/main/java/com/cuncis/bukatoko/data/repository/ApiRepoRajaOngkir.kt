@@ -10,8 +10,8 @@ class ApiRepoRajaOngkir(private val apiService: TheShippingPaymentApi) {
         return apiService.getCities()
     }
 
-    suspend fun getCost(origin: String, destination: String, weight: String, courier: String): Cost.Response {
-        return apiService.getCost(origin, destination, weight, courier)
+    suspend fun postCost(origin: String, destination: String, weight: String, courier: String): Cost.Response {
+        return apiService.postCost(origin, destination, weight, courier)
     }
 
 }
