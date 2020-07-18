@@ -54,8 +54,7 @@ class CheckoutFragment : Fragment() {
     }
 
     private fun dialogCities(results: List<City.Response.Results.Data>) {
-        val list = arrayListOf<String>()
-        val tempList = arrayListOf<String>()
+        var list = arrayListOf<String>()
         val builder = AlertDialog.Builder(requireContext())
         builder.setCancelable(true)
         val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_custom, null)
@@ -74,23 +73,25 @@ class CheckoutFragment : Fragment() {
         listView.adapter = arrayAdapter
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val text = newText?.toLowerCase(Locale.getDefault())
-                for (data in results) {
-                    val name = data.cityName
-                    if (name.contains(text!!)) {
+                val tempList = arrayListOf<String>()
+                val text = newText?.toLowerCase().toString()
+                for (element in results) {
+                    val name = element.cityName.toLowerCase()
+                    if (name.contains(text)) {
                         tempList.add(name)
                     }
                 }
                 arrayAdapter.filter.filter(text)
+                list = tempList
                 return true
             }
         })
         listView.setOnItemClickListener { _, _, position, _ ->
-            binding.etOrigin.setText(tempList[position])
+            binding.etOrigin.setText(list[position].capitalize())
             dialog.dismiss()
         }
 
@@ -109,9 +110,6 @@ class CheckoutFragment : Fragment() {
                 Status.LOADING -> { }
             }
         })
-//        checkoutViewModel.city.observe(viewLifecycleOwner, Observer {
-//            binding.etOrigin.setText(it)
-//        })
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
