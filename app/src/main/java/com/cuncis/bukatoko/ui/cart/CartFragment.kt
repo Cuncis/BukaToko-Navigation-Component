@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.cart
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.databinding.FragmentCartBinding
+import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.RupiahHelper
 import com.cuncis.bukatoko.util.Utils.Companion.showView
 import org.koin.android.ext.android.inject
@@ -20,6 +22,9 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
 
     private lateinit var cartAdapter: CartAdapter
     private var carts = arrayListOf<Cart>()
+
+    private var userId: Int = 0
+    private var grandTotal: Double = 0.0
 
     private val cartViewModel by inject<CartViewModel>()
 
@@ -45,13 +50,15 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
             if (it.isEmpty()) {
                 binding.tvMessageEmpty.showView()
             } else {
+                userId = it[0].id
                 carts.addAll(it)
                 cartAdapter.setCartList(it)
             }
         })
 
         binding.btnCheckout.setOnClickListener {
-            findNavController().navigate(R.id.action_cartFragment_to_checkoutFragment)
+            val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(userId, grandTotal.toFloat())
+            findNavController().navigate(action)
         }
     }
 
@@ -78,6 +85,8 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
         for (i in 0 until cartList.size) {
             priceTotal += cartList[i].total
         }
+
+        grandTotal = priceTotal
 
         binding.tvPriceTotal.text = String.format(getString(R.string.total_cart), RupiahHelper.rupiah(priceTotal))
     }

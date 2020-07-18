@@ -1,11 +1,17 @@
 package com.cuncis.bukatoko.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "cart_table")
+@Parcelize
 data class Cart(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
+
     @ColumnInfo(name = "product_id")
     var productId: Int = 0,
 
@@ -26,7 +32,4 @@ data class Cart(
 
     @ColumnInfo(name = "current_date")
     var currentDate: String = ""
-) {
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-}
+): Parcelable

@@ -3,6 +3,7 @@ package com.cuncis.bukatoko.data.repository
 import com.cuncis.bukatoko.data.api.TheShoppingApi
 import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.data.model.Product
+import com.cuncis.bukatoko.data.model.TransactionData
 import com.cuncis.bukatoko.data.model.User
 
 class ApiRepoProduct(private val apiService: TheShoppingApi) {
@@ -25,6 +26,10 @@ class ApiRepoProduct(private val apiService: TheShoppingApi) {
 
     suspend fun postUpdate(userId: Int, name: String, email: String, password: String): User.Response {
         return apiService.postUpdate(userId, name, email, password)
+    }
+
+    suspend fun postTransaction(transactionData: TransactionData.Data): TransactionData.Data {
+        return apiService.postTransaction(transactionData)
     }
 
 }

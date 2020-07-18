@@ -42,5 +42,5 @@ val viewModelModule = module {
     viewModel { DetailViewModel(get(), androidApplication()) }
     viewModel { UserViewModel(get()) }
     viewModel { CartViewModel(get(), androidApplication()) }
-    viewModel { CheckoutViewModel(get()) }
+    viewModel { CheckoutViewModel(get(), get()) }
 }

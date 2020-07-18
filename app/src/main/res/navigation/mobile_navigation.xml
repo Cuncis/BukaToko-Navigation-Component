@@ -106,5 +106,12 @@
         android:id="@+id/checkoutFragment"
         android:name="com.cuncis.bukatoko.ui.cart.checkout.CheckoutFragment"
         android:label="Checkout"
-        tools:layout="@layout/fragment_checkout" />
+        tools:layout="@layout/fragment_checkout" >
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+        <argument
+            android:name="grandTotal"
+            app:argType="float" />
+    </fragment>
 </navigation>

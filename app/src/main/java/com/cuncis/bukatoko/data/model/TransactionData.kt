@@ -2,17 +2,17 @@ package com.cuncis.bukatoko.data.model
 
 object TransactionData {
     data class Data(
-        val user_id: Int,
-        val destination: String,
-        val ongkir: Int,
-        val grandtotal: Int,
-        val detail: List<Details>
+        var user_id: Int = 0,
+        var destination: String = "",
+        var ongkir: Int = 0,
+        var grandtotal: Int = 0,
+        var detail: List<Details> = arrayListOf()
     ) {
         data class Details(
-            val product_id: Int,
-            val qty: Int,
-            val price: Int,
-            val total: Int
+            var product_id: Int = 0,
+            var qty: Int = 0,
+            var price: Int = 0,
+            var total: Int = 0
         )
     }
 }

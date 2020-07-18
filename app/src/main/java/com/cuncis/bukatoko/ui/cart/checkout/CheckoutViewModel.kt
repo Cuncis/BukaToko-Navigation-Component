@@ -6,10 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.cuncis.bukatoko.data.model.City
 import com.cuncis.bukatoko.data.model.Cost
 import com.cuncis.bukatoko.data.model.Resource
+import com.cuncis.bukatoko.data.model.TransactionData
+import com.cuncis.bukatoko.data.repository.ApiRepoProduct
 import com.cuncis.bukatoko.data.repository.ApiRepoRajaOngkir
 import kotlinx.coroutines.launch
 
-class CheckoutViewModel(private val apiRepoRajaOngkir: ApiRepoRajaOngkir): ViewModel() {
+class CheckoutViewModel(private val apiRepoRajaOngkir: ApiRepoRajaOngkir, private val apiRepoProduct: ApiRepoProduct)
+    : ViewModel() {
 
     private val _cities = MutableLiveData<Resource<City.Response>>()
     val cities: MutableLiveData<Resource<City.Response>>
@@ -18,6 +21,11 @@ class CheckoutViewModel(private val apiRepoRajaOngkir: ApiRepoRajaOngkir): ViewM
     private val _cost = MutableLiveData<Resource<Cost.Response>>()
     val cost: MutableLiveData<Resource<Cost.Response>>
         get() = _cost
+
+    private val _transaction = MutableLiveData<Resource<TransactionData.Data>>()
+    val transaction: MutableLiveData<Resource<TransactionData.Data>>
+        get() = _transaction
+
 
     fun getCities() {
         _cities.postValue(Resource.loading(null))
@@ -43,6 +51,16 @@ class CheckoutViewModel(private val apiRepoRajaOngkir: ApiRepoRajaOngkir): ViewM
         }
     }
 
-
+    fun postTransaction(transactionData: TransactionData.Data) {
+        _transaction.postValue(Resource.loading(null))
+        viewModelScope.launch {
+            try {
+                val response = apiRepoProduct.postTransaction(transactionData)
+                _transaction.postValue(Resource.success(response))
+            } catch (t: Throwable) {
+                _transaction.postValue(Resource.error(t.message.toString(), null, t))
+            }
+        }
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.cart.checkout
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,9 +14,15 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
+import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.data.model.City
+import com.cuncis.bukatoko.data.model.TransactionData
 import com.cuncis.bukatoko.databinding.FragmentCheckoutBinding
+import com.cuncis.bukatoko.ui.cart.CartViewModel
+import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.RupiahHelper
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideView
@@ -28,7 +35,13 @@ import kotlin.collections.ArrayList
 class CheckoutFragment : Fragment() {
 
     private val checkoutViewModel by inject<CheckoutViewModel>()
+    private val cartViewModel by inject<CartViewModel>()
     private lateinit var binding: FragmentCheckoutBinding
+
+    private var ongkirValue: Int = 0
+    private val details = arrayListOf<TransactionData.Data.Details>()
+
+    private val args: CheckoutFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +69,8 @@ class CheckoutFragment : Fragment() {
             if (binding.etOrigin.length() > 0 && binding.etAddress.length() > 0) {
                 binding.linearTrans.showView()
                 binding.linearSave.hideView()
+
+                setTransactionData()
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -64,6 +79,16 @@ class CheckoutFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    private fun setTransactionData() {
+        val data = TransactionData.Data()
+        data.user_id = args.userId
+        data.destination = "${binding.etOrigin.text} - ${binding.etAddress.text}"
+        data.ongkir = ongkirValue
+        data.grandtotal = args.grandTotal.toInt()
+        data.detail = details
+        checkoutViewModel.postTransaction(data)
     }
 
     private fun observeViewModel() {
@@ -101,12 +126,44 @@ class CheckoutFragment : Fragment() {
                 Status.LOADING -> { }
             }
         })
+        checkoutViewModel.transaction.observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    binding.progressBar.hideView()
+                    it.data?.let {
+                        Toast.makeText(
+                            requireContext(),
+                            "Transaction created successfully!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+                Status.ERROR -> {
+                    binding.progressBar.hideView()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                }
+                Status.LOADING -> {
+                    binding.progressBar.showView()
+                }
+            }
+        })
+        cartViewModel.getAllCarts().observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()) {
+                Toast.makeText(requireContext(), "Cart is Empty!", Toast.LENGTH_SHORT).show()
+            } else {
+                val detailData = TransactionData.Data.Details()
+                for (i in it.indices) {
+                    detailData.product_id = it[i].productId
+                    detailData.price = it[i].price.toInt()
+                    detailData.qty = it[i].qty
+                    detailData.total = it[i].total.toInt()
+                    details.add(detailData)
+                }
+            }
+        })
     }
 
-    private fun setAdapter(
-        listService: ArrayList<String>,
-        listValue: ArrayList<Int>
-    ) {
+    private fun setAdapter(listService: ArrayList<String>, listValue: ArrayList<Int>) {
         val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, listService)
         binding.spService.adapter = arrayAdapter
         binding.spService.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -118,6 +175,7 @@ class CheckoutFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
+                ongkirValue = listValue[position]
                 binding.tvOngkir.text = String.format(getString(R.string.tv_ongkir), RupiahHelper.rupiah(listValue[position]))
             }
 
@@ -167,35 +225,6 @@ class CheckoutFragment : Fragment() {
         listView.setOnItemClickListener { _, _, position, _ ->
             checkoutViewModel.postCost("444", list[position].cityId, "1000", "jne")
             binding.etOrigin.setText(list[position].cityName.capitalize())
-            dialog.dismiss()
-        }
-
-        dialog.show()
-    }
-
-    private fun dialogCost() {
-        var list = arrayListOf<String>()
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setCancelable(true)
-        val view = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_custom, null)
-        builder.setView(view)
-
-//        for (i in results.indices) {
-//            list.add(results[i].cityName)
-//        }
-
-        val listView = view.lv_list
-        val searchView = view.sv_list
-        searchView.hideView()
-        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, list)
-
-        val dialog = builder.create()
-
-        listView.adapter = arrayAdapter
-
-        listView.setOnItemClickListener { _, _, position, _ ->
-            checkoutViewModel.postCost("444", list[position].capitalize(), "1000", "jne")
-            binding.etOrigin.setText(list[position].capitalize())
             dialog.dismiss()
         }
 
