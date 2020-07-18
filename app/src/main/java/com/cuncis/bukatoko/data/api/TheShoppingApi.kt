@@ -37,7 +37,8 @@ interface TheShoppingApi {
     ): User.Response
 
     @POST("transaction")
-    suspend fun postTransaction(@Body transactionData: TransactionData.Data)
-            : TransactionData.Data
+    suspend fun postTransaction(
+        @Body transactionData: TransactionData.Data
+    ): TransactionData.Data
 
 }
