@@ -113,5 +113,17 @@
         <argument
             android:name="grandTotal"
             app:argType="float" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/cartFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_nav_transaction"
+            app:destination="@id/nav_transaction"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_transaction"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

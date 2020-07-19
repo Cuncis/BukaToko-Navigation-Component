@@ -25,6 +25,7 @@
                 android:id="@+id/et_origin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
                 android:focusable="false"
                 android:hint="@string/city" />
 
@@ -33,6 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="start"
+                android:inputType="textMultiLine"
                 android:hint="@string/desc_et_address"
                 android:maxLines="5"
                 android:minLines="3"
@@ -127,7 +129,7 @@
                     android:textColor="@color/colorWhite"/>
 
                 <TextView
-                    android:id="@+id/txtDismiss"
+                    android:id="@+id/tv_dismiss"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center"
@@ -144,7 +146,7 @@
                 android:visibility="gone">
 
                 <Button
-                    android:id="@+id/btnTrans"
+                    android:id="@+id/btn_trans"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/custom_button"
@@ -152,7 +154,7 @@
                     android:textColor="@color/colorWhite" />
 
                 <TextView
-                    android:id="@+id/txtCancel"
+                    android:id="@+id/tv_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:gravity="center"

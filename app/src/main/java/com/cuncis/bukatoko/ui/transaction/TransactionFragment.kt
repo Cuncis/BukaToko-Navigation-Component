@@ -21,7 +21,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        vp_transaction.adapter = TransactionPagerAdapter(requireActivity().supportFragmentManager)
+        vp_transaction.adapter = TransactionPagerAdapter(childFragmentManager)
         tl_transaction.setupWithViewPager(vp_transaction)
     }
 

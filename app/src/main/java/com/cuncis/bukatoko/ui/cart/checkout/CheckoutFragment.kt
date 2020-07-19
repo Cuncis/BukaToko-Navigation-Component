@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
@@ -79,6 +80,17 @@ class CheckoutFragment : Fragment() {
                 ).show()
             }
         }
+        binding.tvDismiss.setOnClickListener {
+            findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
+        }
+        binding.btnTrans.setOnClickListener {
+            Toast.makeText(requireContext(), "Go To Upload Proof of Payment", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_checkoutFragment_to_nav_transaction)
+        }
+        binding.tvCancel.setOnClickListener {
+            Toast.makeText(requireContext(), "Go To Transaction", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_checkoutFragment_to_nav_transaction)
+        }
     }
 
     private fun setTransactionData() {
@@ -131,6 +143,7 @@ class CheckoutFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hideView()
                     it.data?.let {
+                        cartViewModel.deleteCart()
                         Toast.makeText(
                             requireContext(),
                             "Transaction created successfully!",
