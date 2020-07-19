@@ -1,10 +1,7 @@
 package com.cuncis.bukatoko.data.repository
 
 import com.cuncis.bukatoko.data.api.TheShoppingApi
-import com.cuncis.bukatoko.data.model.Detail
-import com.cuncis.bukatoko.data.model.Product
-import com.cuncis.bukatoko.data.model.TransactionData
-import com.cuncis.bukatoko.data.model.User
+import com.cuncis.bukatoko.data.model.*
 
 class ApiRepoProduct(private val apiService: TheShoppingApi) {
 
@@ -32,4 +29,11 @@ class ApiRepoProduct(private val apiService: TheShoppingApi) {
         return apiService.postTransaction(transactionData)
     }
 
+    suspend fun getTransactionUnpaid(userId: String): Transaction.Response {
+        return apiService.getTransactionUnpaid(userId)
+    }
+
+    suspend fun getTransactionPaid(userId: String): Transaction.Response {
+        return apiService.getTransactionPaid(userId)
+    }
 }

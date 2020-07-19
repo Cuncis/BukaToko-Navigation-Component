@@ -1,9 +1,6 @@
 package com.cuncis.bukatoko.data.api
 
-import com.cuncis.bukatoko.data.model.Detail
-import com.cuncis.bukatoko.data.model.Product
-import com.cuncis.bukatoko.data.model.TransactionData
-import com.cuncis.bukatoko.data.model.User
+import com.cuncis.bukatoko.data.model.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -40,5 +37,15 @@ interface TheShoppingApi {
     suspend fun postTransaction(
         @Body transactionData: TransactionData.Data
     ): TransactionData.Data
+
+    @GET("transaction-user/{id}/unpaid")
+    suspend fun getTransactionUnpaid(
+        @Path("id") userId: String
+    ): Transaction.Response
+
+    @GET("transaction-user/{id}/paid")
+    suspend fun getTransactionPaid(
+        @Path("id") userId: String
+    ): Transaction.Response
 
 }
