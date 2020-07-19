@@ -14,23 +14,26 @@ interface TheShoppingApi {
 
     @FormUrlEncoded
     @POST("auth/login")
-    suspend fun postLogin(@Field("email") email: String,
-                      @Field("password") password: String
+    suspend fun postLogin(
+        @Field("email") email: String,
+        @Field("password") password: String
     ): User.Response
 
     @FormUrlEncoded
     @POST("auth/register")
-    suspend fun postRegister(@Field("name") name: String,
-                 @Field("email") email: String,
-                 @Field("password") password: String
+    suspend fun postRegister(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
     ): User.Response
 
     @FormUrlEncoded
     @POST("auth/update/{id}")
-    suspend fun postUpdate(@Path("id") userId: Int,
-                   @Field("name") name: String,
-                   @Field("email") email: String,
-                   @Field("password") password: String
+    suspend fun postUpdate(
+        @Path("id") userId: Int,
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
     ): User.Response
 
     @POST("transaction")

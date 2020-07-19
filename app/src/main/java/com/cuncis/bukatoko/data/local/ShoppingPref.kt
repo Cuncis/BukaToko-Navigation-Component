@@ -3,7 +3,6 @@ package com.cuncis.bukatoko.data.local
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.cuncis.bukatoko.data.model.User
 import com.cuncis.bukatoko.data.model.UserData
 import com.cuncis.bukatoko.util.Constants.EMAIL_KEY
 import com.cuncis.bukatoko.util.Constants.ID_USER_KEY
@@ -39,6 +38,10 @@ class ShoppingPref {
 
         fun getUsername(context: Context): String {
             return getSharedPreferences(context).getString(USERNAME_KEY, "").toString()
+        }
+
+        fun getUserId(context: Context): Int {
+            return getSharedPreferences(context).getInt(ID_USER_KEY, 0)
         }
 
         fun clearPref(context: Context) {

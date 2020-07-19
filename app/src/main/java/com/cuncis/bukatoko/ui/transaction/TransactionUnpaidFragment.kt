@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.cuncis.bukatoko.R
+import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.databinding.FragmentTransactionUnpaidBinding
 import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Status
@@ -56,7 +57,7 @@ class TransactionUnpaidFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        transactionViewModel.getTransactionUnpaid("44")
+        transactionViewModel.getTransactionUnpaid(ShoppingPref.getUserId(requireContext()).toString())
         transactionViewModel.transactionUnpaidList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {

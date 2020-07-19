@@ -18,6 +18,7 @@ import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
+import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.data.model.City
 import com.cuncis.bukatoko.data.model.TransactionData
@@ -49,13 +50,14 @@ class CheckoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
-        // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkout, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Log.d(TAG, "onViewCreated: ${ShoppingPref.getUserId(requireContext())}")
 
         observeViewModel()
 
@@ -68,7 +70,6 @@ class CheckoutFragment : Fragment() {
         }
         binding.btnSave.setOnClickListener {
             if (binding.etOrigin.length() > 0 && binding.etAddress.length() > 0) {
-                binding.linearTrans.showView()
                 binding.linearSave.hideView()
 
                 setTransactionData()
@@ -143,6 +144,7 @@ class CheckoutFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hideView()
                     it.data?.let {
+                        binding.linearTrans.showView()
                         cartViewModel.deleteCart()
                         Toast.makeText(
                             requireContext(),

@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.cuncis.bukatoko.R
+import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.databinding.FragmentCartBinding
 import com.cuncis.bukatoko.util.Constants.TAG
@@ -23,7 +24,6 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
     private lateinit var cartAdapter: CartAdapter
     private var carts = arrayListOf<Cart>()
 
-    private var userId: Int = 0
     private var grandTotal: Double = 0.0
 
     private val cartViewModel by inject<CartViewModel>()
@@ -50,15 +50,20 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
             if (it.isEmpty()) {
                 binding.tvMessageEmpty.showView()
             } else {
-                userId = it[0].id
                 carts.addAll(it)
                 cartAdapter.setCartList(it)
             }
         })
 
         binding.btnCheckout.setOnClickListener {
-            val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(userId, grandTotal.toFloat())
-            findNavController().navigate(action)
+            if (carts.isEmpty()) {
+                Toast.makeText(requireContext(), "Cart is Empty", Toast.LENGTH_SHORT).show()
+            } else {
+                val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(
+                    ShoppingPref.getUserId(requireContext()), grandTotal.toFloat()
+                )
+                findNavController().navigate(action)
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.ui.user.form
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,6 +13,7 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.ui.user.UserViewModel
+import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideLoading
 import com.cuncis.bukatoko.util.Utils.Companion.isValidEmailId
@@ -29,7 +31,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         (requireActivity() as ShoppingActivity).title = "Login"
-
 
         observeViewModel(view)
 
