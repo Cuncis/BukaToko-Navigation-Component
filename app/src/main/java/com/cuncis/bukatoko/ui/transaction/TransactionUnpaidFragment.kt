@@ -14,6 +14,7 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.databinding.FragmentTransactionUnpaidBinding
 import com.cuncis.bukatoko.util.Constants.TAG
+import com.cuncis.bukatoko.util.ErrorUtils
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideView
 import com.cuncis.bukatoko.util.Utils.Companion.showView
@@ -45,7 +46,6 @@ class TransactionUnpaidFragment : Fragment() {
         initRecyclerView()
 
         observeViewModel()
-
     }
 
     private fun initRecyclerView() {
@@ -63,11 +63,24 @@ class TransactionUnpaidFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hideView()
                     it.data?.data?.let { transactionList ->
-                        unpaidAdapter.submitList(transactionList)
+                        when (it.data.status.code) {
+                            200 -> {
+                                unpaidAdapter.submitList(transactionList)
+                            }
+                            404 -> {
+                                binding.tvNotFound.showView()
+                                binding.tvNotFound.text = it.message
+                            }
+                            else -> {
+                                Toast.makeText(requireContext(), it.data.status.description, Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
                 }
                 Status.ERROR -> {
                     binding.progressBar.hideView()
+                    binding.tvNotFound.showView()
+                    binding.tvNotFound.text = it.message
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
                 Status.LOADING -> {

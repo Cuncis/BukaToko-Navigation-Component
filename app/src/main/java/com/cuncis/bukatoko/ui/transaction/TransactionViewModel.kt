@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.cuncis.bukatoko.data.model.Resource
 import com.cuncis.bukatoko.data.model.Transaction
 import com.cuncis.bukatoko.data.repository.ApiRepoProduct
+import com.cuncis.bukatoko.util.ErrorUtils
 import kotlinx.coroutines.launch
 
 class TransactionViewModel(private val apiRepoProduct: ApiRepoProduct) : ViewModel() {
@@ -27,7 +28,7 @@ class TransactionViewModel(private val apiRepoProduct: ApiRepoProduct) : ViewMod
                 val response = apiRepoProduct.getTransactionUnpaid(userId)
                 _transactionUnpaidList.postValue(Resource.success(response))
             } catch (t: Throwable) {
-                _transactionUnpaidList.postValue(Resource.error(t.message.toString(), null, t))
+                _transactionUnpaidList.postValue(Resource.error(ErrorUtils.getErrorThrowableMessage(t), null, t))
             }
         }
     }
@@ -39,7 +40,7 @@ class TransactionViewModel(private val apiRepoProduct: ApiRepoProduct) : ViewMod
                 val response = apiRepoProduct.getTransactionPaid(userId)
                 _transactionPaidList.postValue(Resource.success(response))
             } catch (t: Throwable) {
-                _transactionPaidList.postValue(Resource.error(t.message.toString(), null, t))
+                _transactionPaidList.postValue(Resource.error(ErrorUtils.getErrorThrowableMessage(t), null, t))
             }
         }
     }

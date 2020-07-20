@@ -112,7 +112,6 @@ class DetailFragment : Fragment(), View.OnClickListener {
                 }
             })
         } else if (v?.id == R.id.btn_checkout) {
-
             Toast.makeText(requireContext(), "Checkout", Toast.LENGTH_SHORT).show()
         }
     }
