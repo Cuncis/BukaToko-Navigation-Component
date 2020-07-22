@@ -18,5 +18,16 @@
                 android:layout_height="match_parent"
                 android:id="@+id/rv_product" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fab_state_connection"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="35dp"
+            android:src="@drawable/ic_baseline_wifi"
+            android:tint="@color/colorWhite"
+            app:backgroundTint="@android:color/holo_green_dark"/>
     </RelativeLayout>
 </layout>
