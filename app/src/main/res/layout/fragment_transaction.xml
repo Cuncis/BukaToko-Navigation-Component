@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.transaction.TransactionFragment">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_transaction"
+    <fragment
+        android:id="@+id/nested_nav_host_fragment_home"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_transaction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </androidx.viewpager.widget.ViewPager>
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:defaultNavHost="false"
+        app:navGraph="@navigation/transaction_graph" />
 </RelativeLayout>

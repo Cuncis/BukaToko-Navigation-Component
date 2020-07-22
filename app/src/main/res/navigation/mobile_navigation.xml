@@ -125,5 +125,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/nav_transaction"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_checkoutFragment_to_transactionUploadFragment"
+            app:destination="@id/transactionUploadFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/transactionUploadFragment"
+        android:name="com.cuncis.bukatoko.ui.transaction.TransactionUploadFragment"
+        android:label="Upload Image" />
 </navigation>

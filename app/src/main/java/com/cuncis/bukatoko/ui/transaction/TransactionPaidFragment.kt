@@ -9,6 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.databinding.FragmentTransactionPaidBinding
@@ -17,6 +21,7 @@ import com.cuncis.bukatoko.util.ErrorUtils
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideView
 import com.cuncis.bukatoko.util.Utils.Companion.showView
+import kotlinx.android.synthetic.main.fragment_transaction.*
 import org.koin.android.ext.android.inject
 
 
@@ -26,6 +31,8 @@ class TransactionPaidFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionPaidBinding
     private lateinit var paidAdapter: TransactionAdapter
+
+    private var navController: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,7 @@ class TransactionPaidFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = childFragmentManager.findFragmentById(R.id.nested_nav_host_fragment_home)?.findNavController()
 
         initRecyclerView()
 
@@ -47,7 +55,7 @@ class TransactionPaidFragment : Fragment() {
         paidAdapter = TransactionAdapter()
         binding.rvPaid.adapter = paidAdapter
         paidAdapter.onUploadClick = {
-            Toast.makeText(requireContext(), "Upload Clicked", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_transactionPaidFragment_to_transactionUploadFragment)
         }
     }
 

@@ -59,4 +59,9 @@
     <string name="tv_ongkir">Rp %s</string>
     <string name="upload">Upload</string>
     <string name="data_is_empty">Data is Empty!</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="select_from_gallery">Select from gallery</string>
+    <string name="title_activity_tab_sample">TabSampleActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
 </resources>

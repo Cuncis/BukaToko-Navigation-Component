@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="transaction"
             type="com.cuncis.bukatoko.data.model.Transaction.Response.Data" />
@@ -52,6 +53,7 @@
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="12sp"
+                    android:visibility="@{transaction.status_transaction == `pending` ? View.GONE : View.VISIBLE}"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>

@@ -45,9 +45,4 @@ class TransactionViewModel(private val apiRepoProduct: ApiRepoProduct) : ViewMod
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        _transactionUnpaidList.postValue(null)
-    }
-
 }
