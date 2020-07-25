@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_nav_transaction_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_nav_transaction_to_transactionUploadFragment"
+            app:destination="@id/transactionUploadFragment" />
     </fragment>
 
     <fragment

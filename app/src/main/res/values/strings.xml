@@ -64,4 +64,6 @@
     <string name="title_activity_tab_sample">TabSampleActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="unpaid">Unpaid</string>
+    <string name="paid">Paid</string>
 </resources>

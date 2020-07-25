@@ -1,5 +1,7 @@
 package com.cuncis.bukatoko.ui.transaction
 
+import android.view.View
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +22,10 @@ class TransactionViewModel(private val apiRepoProduct: ApiRepoProduct) : ViewMod
     val transactionPaidList: MutableLiveData<Resource<Transaction.Response>>
         get() = _transactionPaidList
 
+    val unpaidVisibleSuccess = ObservableField<Int>()
+    val paidVisibleSuccess = ObservableField<Int>()
+    val emptyUnpaidVisible = ObservableField<Int>()
+    val emptyPaidVisible = ObservableField<Int>()
 
     fun getTransactionUnpaid(userId: String) {
         _transactionUnpaidList.postValue(Resource.loading(null))
