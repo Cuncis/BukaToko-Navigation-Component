@@ -85,8 +85,7 @@ class CheckoutFragment : Fragment() {
             findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
         }
         binding.btnTrans.setOnClickListener {
-            Toast.makeText(requireContext(), "Go To Upload Proof of Payment", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_checkoutFragment_to_nav_transaction)
+            findNavController().navigate(R.id.action_checkoutFragment_to_transactionUploadFragment)
         }
         binding.tvCancel.setOnClickListener {
             Toast.makeText(requireContext(), "Go To Transaction", Toast.LENGTH_SHORT).show()

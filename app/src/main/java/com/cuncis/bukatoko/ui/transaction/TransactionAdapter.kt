@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Transaction
 import com.cuncis.bukatoko.databinding.ItemTransactionBinding
+import com.cuncis.bukatoko.util.Utils.Companion.hideView
 
 class TransactionAdapter: RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
 
-    var onUploadClick: (() -> Unit)? = null
+    var onUploadClick: ((String?) -> Unit)? = null
 
     private val transactionList = arrayListOf<Transaction.Response.Data>()
 
@@ -34,7 +35,7 @@ class TransactionAdapter: RecyclerView.Adapter<TransactionAdapter.ViewHolder>() 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.transaction = transactionList[position]
         holder.binding.btnUpload.setOnClickListener {
-            onUploadClick?.invoke()
+            onUploadClick?.invoke(transactionList[position].transaction_code)
         }
     }
 

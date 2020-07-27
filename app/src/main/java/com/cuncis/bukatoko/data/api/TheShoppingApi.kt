@@ -1,6 +1,7 @@
 package com.cuncis.bukatoko.data.api
 
 import com.cuncis.bukatoko.data.model.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -50,5 +51,12 @@ interface TheShoppingApi {
     suspend fun getTransactionPaid(
         @Path("id") userId: String
     ): Transaction.Response
+
+    @Multipart
+    @POST("upload/{code}")
+    suspend fun postUploadImage(
+        @Path("code") code: String,
+        @Part imageFile: MultipartBody.Part
+    ): Upload.Response
 
 }

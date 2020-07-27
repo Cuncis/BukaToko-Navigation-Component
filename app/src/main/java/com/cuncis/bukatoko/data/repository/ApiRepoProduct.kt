@@ -2,6 +2,7 @@ package com.cuncis.bukatoko.data.repository
 
 import com.cuncis.bukatoko.data.api.TheShoppingApi
 import com.cuncis.bukatoko.data.model.*
+import okhttp3.MultipartBody
 
 class ApiRepoProduct(private val apiService: TheShoppingApi) {
 
@@ -35,5 +36,9 @@ class ApiRepoProduct(private val apiService: TheShoppingApi) {
 
     suspend fun getTransactionPaid(userId: String): Transaction.Response {
         return apiService.getTransactionPaid(userId)
+    }
+
+    suspend fun postUploadImage(code: String, imageFile: MultipartBody.Part): Upload.Response {
+        return apiService.postUploadImage(code, imageFile)
     }
 }

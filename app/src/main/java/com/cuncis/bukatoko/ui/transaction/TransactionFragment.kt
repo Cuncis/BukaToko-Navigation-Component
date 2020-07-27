@@ -82,16 +82,18 @@ class TransactionFragment : Fragment() {
     private fun initRecyclerViewUnpaid() {
         transactionAdapter = TransactionAdapter()
         binding.rvUnpaid.adapter = transactionAdapter
-        transactionAdapter.onUploadClick = {
-            findNavController().navigate(R.id.action_nav_transaction_to_transactionUploadFragment)
+        transactionAdapter.onUploadClick = { code ->
+            val action = TransactionFragmentDirections.actionNavTransactionToTransactionUploadFragment(code.toString())
+            findNavController().navigate(action)
         }
     }
 
     private fun initRecyclerViewPaid() {
         transactionAdapter = TransactionAdapter()
         binding.rvPaid.adapter = transactionAdapter
-        transactionAdapter.onUploadClick = {
-            findNavController().navigate(R.id.action_nav_transaction_to_transactionUploadFragment)
+        transactionAdapter.onUploadClick = { code ->
+            val action = TransactionFragmentDirections.actionNavTransactionToTransactionUploadFragment(code.toString())
+            findNavController().navigate(action)
         }
     }
 
@@ -102,11 +104,13 @@ class TransactionFragment : Fragment() {
         transactionViewModel.transactionUnpaidList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+                    binding.progressBar.hideView()
                     it.data?.data?.let { transactionList ->
                         transactionAdapter.submitList(transactionList)
                     }
                 }
                 Status.ERROR -> {
+                    binding.progressBar.hideView()
                     binding.tvNotFoundUnpaid.text = it.message
                 }
                 Status.LOADING -> {
@@ -117,11 +121,13 @@ class TransactionFragment : Fragment() {
         transactionViewModel.transactionPaidList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
+                    binding.progressBar.hideView()
                     it.data?.data?.let { transactionList ->
                         transactionAdapter.submitList(transactionList)
                     }
                 }
                 Status.ERROR -> {
+                    binding.progressBar.hideView()
                     binding.tvNotFoundPaid.text = it.message
                 }
                 Status.LOADING -> {
