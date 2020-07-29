@@ -154,6 +154,7 @@ class CheckoutFragment : Fragment() {
                 }
                 Status.ERROR -> {
                     binding.progressBar.hideView()
+                    binding.linearSave.showView()
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 Status.LOADING -> {

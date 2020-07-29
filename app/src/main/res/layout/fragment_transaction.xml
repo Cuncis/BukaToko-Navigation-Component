@@ -3,101 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="viewmodel"
-            type="com.cuncis.bukatoko.ui.transaction.TransactionViewModel" />
-    </data>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_transaction"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.transaction.TransactionFragment">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/linearTab">
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_unpaid"
-                    android:text="@string/unpaid"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_paid"
-                    android:text="@string/paid"
-                    android:textSize="20sp"
-                    android:gravity="center"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:padding="10dp"/>
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/linearTab"
-                android:id="@+id/parentUnpaid">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/rv_unpaid"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-                <TextView
-                    android:id="@+id/tv_notFoundPaid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/linearTab"
-                android:id="@+id/parentPaid">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/rv_paid"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-                <TextView
-                    android:id="@+id/tv_notFoundUnpaid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"/>
-            </RelativeLayout>
-
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_below="@+id/tabLayout"/>
+    </RelativeLayout>
 </layout>

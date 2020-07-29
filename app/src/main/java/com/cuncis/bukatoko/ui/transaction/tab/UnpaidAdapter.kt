@@ -1,4 +1,4 @@
-package com.cuncis.bukatoko.ui.transaction
+package com.cuncis.bukatoko.ui.transaction.tab
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,13 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Transaction
 import com.cuncis.bukatoko.databinding.ItemTransactionBinding
-import com.cuncis.bukatoko.util.Utils.Companion.hideView
 
-class TransactionAdapter: RecyclerView.Adapter<TransactionAdapter.ViewHolder>() {
+class UnpaidAdapter: RecyclerView.Adapter<UnpaidAdapter.ViewHolder>() {
 
     var onUploadClick: ((String?) -> Unit)? = null
 
-    private val transactionList = arrayListOf<Transaction.Response.Data>()
+    private val unpaidList = arrayListOf<Transaction.Response.Data>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         DataBindingUtil.inflate(
@@ -24,18 +23,18 @@ class TransactionAdapter: RecyclerView.Adapter<TransactionAdapter.ViewHolder>() 
         )
     )
 
-    override fun getItemCount(): Int = transactionList.size
+    override fun getItemCount(): Int = unpaidList.size
 
-    fun submitList(newList: List<Transaction.Response.Data>) {
-        transactionList.clear()
-        transactionList.addAll(newList)
+    fun submitUnpaidList(newList: List<Transaction.Response.Data>) {
+        unpaidList.clear()
+        unpaidList.addAll(newList)
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.transaction = transactionList[position]
+        holder.binding.transaction = unpaidList[position]
         holder.binding.btnUpload.setOnClickListener {
-            onUploadClick?.invoke(transactionList[position].transaction_code)
+            onUploadClick?.invoke(unpaidList[position].transaction_code)
         }
     }
 

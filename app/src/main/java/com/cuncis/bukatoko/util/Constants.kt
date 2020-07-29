@@ -9,4 +9,6 @@ object Constants {
     const val USERNAME_KEY = "username"
     const val EMAIL_KEY = "email"
     const val PASSWORD_KEY = "password"
+
+    const val TAB_KEY = "tab_transaction"
 }

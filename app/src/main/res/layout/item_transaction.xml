@@ -53,7 +53,7 @@
                     android:textColor="@color/colorWhite"
                     android:textAllCaps="false"
                     android:textSize="12sp"
-                    android:visibility="@{transaction.status_transaction.equals(`pending`) ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{transaction.status_transaction.equals(`pending`) || transaction.status_transaction.equals(`send`) ? View.GONE : View.VISIBLE}"
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
