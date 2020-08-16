@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getColor
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -110,7 +111,8 @@ class HomeFragment : Fragment(),
     }
 
     override fun onItemClick(product: Product.Data) {
-        val action = HomeFragmentDirections.actionNavHomeToDetailFragment(product)
-        findNavController().navigate(action)
+//        val action = HomeFragmentDirections.actionNavHomeToDetailFragment(product)
+        val bundle = bundleOf("to" to "detail", "product" to product)
+        findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
     }
 }

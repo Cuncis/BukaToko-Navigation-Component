@@ -1,7 +1,6 @@
 package com.cuncis.bukatoko.ui.transaction.detail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -10,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.cuncis.bukatoko.R
+import com.cuncis.bukatoko.data.model.Detail
 import com.cuncis.bukatoko.databinding.FragmentTransactionDetailBinding
-import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Status
 import com.cuncis.bukatoko.util.Utils.Companion.hideView
 import com.cuncis.bukatoko.util.Utils.Companion.showView
@@ -45,7 +43,8 @@ class TransactionDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = TransactionDetailAdapter()
+        val adapter =
+            TransactionDetailAdapter()
         binding.recyclerviewTransDetail.adapter = adapter
 
         binding.switchTagihan.setOnCheckedChangeListener { _, isChecked1 ->

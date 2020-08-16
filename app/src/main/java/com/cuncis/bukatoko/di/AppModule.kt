@@ -48,5 +48,9 @@ val viewModelModule = module {
     viewModel { CheckoutViewModel(get(), get()) }
     viewModel { TransactionViewModel(get()) }
     viewModel { TransactionUploadViewModel(get()) }
-    viewModel { TransactionDetailViewModel(get()) }
+    viewModel {
+        TransactionDetailViewModel(
+            get()
+        )
+    }
 }

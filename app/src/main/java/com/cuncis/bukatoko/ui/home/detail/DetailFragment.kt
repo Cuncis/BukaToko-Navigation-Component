@@ -17,6 +17,7 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.data.model.Detail
+import com.cuncis.bukatoko.data.model.Product
 import com.cuncis.bukatoko.databinding.FragmentDetailBinding
 import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants.TAG
@@ -40,9 +41,8 @@ class DetailFragment : Fragment(), View.OnClickListener {
     private val detailViewModel by inject<DetailViewModel>()
     private val cartViewModel by inject<CartViewModel>()
 
-    private val args: DetailFragmentArgs by navArgs()
-
     private lateinit var binding: FragmentDetailBinding
+    private val detail: Product.Data by lazy { arguments?.getParcelable<Product.Data>("product") as Product.Data }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,13 +61,11 @@ class DetailFragment : Fragment(), View.OnClickListener {
         (requireActivity() as ShoppingActivity).supportActionBar?.title = "Detail Product"
         binding.listener = this
 
-        Log.d(TAG, "onViewCreated: ${args.product.id}")
-
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        detailViewModel.getDetailProduct(args.product.id.toString())
+        detailViewModel.getDetailProduct(detail.id.toString())
         detailViewModel.detailProduct.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.SUCCESS -> {
@@ -97,18 +95,18 @@ class DetailFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.btn_add_cart) {
-            cartViewModel.getCartById(args.product.id).observe(viewLifecycleOwner, Observer {
+            cartViewModel.getCartById(detail.id).observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     Toast.makeText(requireContext(), "Product is Exist", Toast.LENGTH_SHORT).show()
                 } else {
                     val cart = Cart()
-                    cart.productId = args.product.id
-                    cart.productName = args.product.product
-                    cart.price = args.product.price.toDouble()
-                    cart.imageUrl = args.product.image
+                    cart.productId = detail.id
+                    cart.productName = detail.product
+                    cart.price = detail.price.toDouble()
+                    cart.imageUrl = detail.image
                     cart.currentDate = getCurrentDate()
                     cartViewModel.insertCart(cart)
-                    this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment)
+//                    this.dialogCustomCart(R.id.action_detailFragment_to_cartFragment)
                 }
             })
         } else if (v?.id == R.id.btn_checkout) {

@@ -6,9 +6,20 @@
     <fragment
         android:id="@+id/tabTransactionFragment"
         android:name="com.cuncis.bukatoko.ui.transaction.tab.TabTransactionFragment"
-        android:label="TabTransactionFragment" />
+        android:label="TabTransactionFragment" >
+        <action
+            android:id="@+id/action_tabTransactionFragment_to_transactionUploadFragment2"
+            app:destination="@id/transactionUploadFragment2" />
+        <action
+            android:id="@+id/action_tabTransactionFragment_to_transactionDetailFragment2"
+            app:destination="@id/transactionDetailFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/transactionUploadFragment2"
         android:name="com.cuncis.bukatoko.ui.transaction.upload.TransactionUploadFragment"
         android:label="TransactionUploadFragment" />
+    <fragment
+        android:id="@+id/transactionDetailFragment2"
+        android:name="com.cuncis.bukatoko.ui.transaction.detail.TransactionDetailFragment"
+        android:label="TransactionDetailFragment" />
 </navigation>

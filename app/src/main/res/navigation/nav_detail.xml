@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_detail"
+    app:startDestination="@id/detailFragment2">
+
+    <fragment
+        android:id="@+id/detailFragment2"
+        android:name="com.cuncis.bukatoko.ui.home.detail.DetailFragment"
+        android:label="DetailFragment" >
+        <action
+            android:id="@+id/action_detailFragment2_to_cartFragment2"
+            app:destination="@id/cartFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment2"
+        android:name="com.cuncis.bukatoko.ui.cart.CartFragment"
+        android:label="CartFragment" >
+        <action
+            android:id="@+id/action_cartFragment2_to_checkoutFragment2"
+            app:destination="@id/checkoutFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/checkoutFragment2"
+        android:name="com.cuncis.bukatoko.ui.cart.checkout.CheckoutFragment"
+        android:label="CheckoutFragment" />
+</navigation>
