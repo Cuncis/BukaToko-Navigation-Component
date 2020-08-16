@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/nav_transaction"
-        android:name="com.cuncis.bukatoko.ui.transaction.TransactionFragment"
+        android:name="com.cuncis.bukatoko.ui.transaction.tab.TransactionFragment"
         android:label="@string/menu_transaction"
         tools:layout="@layout/fragment_transaction" >
         <action
@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_nav_transaction_to_transactionUploadFragment"
             app:destination="@id/transactionUploadFragment" />
+        <action
+            android:id="@+id/action_nav_transaction_to_transactionDetailFragment"
+            app:destination="@id/transactionDetailFragment" />
     </fragment>
 
     <fragment
@@ -144,6 +147,17 @@
             app:argType="string" />
         <action
             android:id="@+id/action_transactionUploadFragment_to_nav_transaction"
+            app:destination="@id/nav_transaction" />
+    </fragment>
+    <fragment
+        android:id="@+id/transactionDetailFragment"
+        android:name="com.cuncis.bukatoko.ui.transaction.detail.TransactionDetailFragment"
+        android:label="TransactionDetailFragment" >
+        <argument
+            android:name="transactionCode"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_transactionDetailFragment_to_nav_transaction"
             app:destination="@id/nav_transaction" />
     </fragment>
 </navigation>

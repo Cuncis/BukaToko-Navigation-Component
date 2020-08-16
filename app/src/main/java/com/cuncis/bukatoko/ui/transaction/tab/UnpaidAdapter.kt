@@ -10,7 +10,8 @@ import com.cuncis.bukatoko.databinding.ItemTransactionBinding
 
 class UnpaidAdapter: RecyclerView.Adapter<UnpaidAdapter.ViewHolder>() {
 
-    var onUploadClick: ((String?) -> Unit)? = null
+    private var onUploadClick: ((String?) -> Unit)? = null
+    private var listener: ((String?) -> Unit)? = null
 
     private val unpaidList = arrayListOf<Transaction.Response.Data>()
 
@@ -36,6 +37,13 @@ class UnpaidAdapter: RecyclerView.Adapter<UnpaidAdapter.ViewHolder>() {
         holder.binding.btnUpload.setOnClickListener {
             onUploadClick?.invoke(unpaidList[position].transaction_code)
         }
+        holder.itemView.setOnClickListener {
+            listener?.invoke(unpaidList[position].transaction_code)
+        }
+    }
+
+    fun setListener(listener: (String?) -> Unit) {
+        this.listener = listener
     }
 
     inner class ViewHolder(val binding: ItemTransactionBinding)

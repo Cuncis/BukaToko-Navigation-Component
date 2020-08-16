@@ -59,4 +59,9 @@ interface TheShoppingApi {
         @Part imageFile: MultipartBody.Part
     ): Upload.Response
 
+    @GET("transaction/{transaction_code}")
+    suspend fun getTransactionDetail(
+        @Path("transaction_code") transactionCode: String
+    ): TransactionDetail.Response
+
 }

@@ -41,4 +41,8 @@ class ApiRepoProduct(private val apiService: TheShoppingApi) {
     suspend fun postUploadImage(code: String, imageFile: MultipartBody.Part): Upload.Response {
         return apiService.postUploadImage(code, imageFile)
     }
+
+    suspend fun getTransactionDetail(transactionCode: String): TransactionDetail.Response {
+        return apiService.getTransactionDetail(transactionCode)
+    }
 }

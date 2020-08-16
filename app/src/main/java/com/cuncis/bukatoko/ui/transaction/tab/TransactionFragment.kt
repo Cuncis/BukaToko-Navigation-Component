@@ -1,4 +1,4 @@
-package com.cuncis.bukatoko.ui.transaction
+package com.cuncis.bukatoko.ui.transaction.tab
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,8 @@ class TransactionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        val adapter = TransactionPagerAdapter(this)
+        val adapter =
+            TransactionPagerAdapter(this)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

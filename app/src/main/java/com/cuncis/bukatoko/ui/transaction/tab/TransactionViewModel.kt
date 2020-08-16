@@ -1,4 +1,4 @@
-package com.cuncis.bukatoko.ui.transaction
+package com.cuncis.bukatoko.ui.transaction.tab
 
 import android.view.View
 import androidx.databinding.ObservableField

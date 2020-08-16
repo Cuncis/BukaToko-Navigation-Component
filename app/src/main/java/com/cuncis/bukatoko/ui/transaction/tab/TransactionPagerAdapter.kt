@@ -1,9 +1,8 @@
-package com.cuncis.bukatoko.ui.transaction
+package com.cuncis.bukatoko.ui.transaction.tab
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.cuncis.bukatoko.ui.transaction.tab.TabTransactionFragment
 import com.cuncis.bukatoko.util.Constants.TAB_KEY
 
 class TransactionPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {

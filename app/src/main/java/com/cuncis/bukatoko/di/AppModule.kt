@@ -13,7 +13,8 @@ import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.ui.cart.checkout.CheckoutViewModel
 import com.cuncis.bukatoko.ui.home.HomeViewModel
 import com.cuncis.bukatoko.ui.home.detail.DetailViewModel
-import com.cuncis.bukatoko.ui.transaction.TransactionViewModel
+import com.cuncis.bukatoko.ui.transaction.detail.TransactionDetailViewModel
+import com.cuncis.bukatoko.ui.transaction.tab.TransactionViewModel
 import com.cuncis.bukatoko.ui.transaction.upload.TransactionUploadViewModel
 import com.cuncis.bukatoko.ui.user.UserViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -47,4 +48,5 @@ val viewModelModule = module {
     viewModel { CheckoutViewModel(get(), get()) }
     viewModel { TransactionViewModel(get()) }
     viewModel { TransactionUploadViewModel(get()) }
+    viewModel { TransactionDetailViewModel(get()) }
 }

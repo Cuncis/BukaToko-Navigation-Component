@@ -66,4 +66,6 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="unpaid">Unpaid</string>
     <string name="paid">Paid</string>
+    <string name="status">Status</string>
+    <string name="lihat_pengiriman">Lihat Pengiriman</string>
 </resources>

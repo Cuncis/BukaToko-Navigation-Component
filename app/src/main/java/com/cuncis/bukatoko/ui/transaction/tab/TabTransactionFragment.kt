@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.databinding.FragmentTabTransactionBinding
-import com.cuncis.bukatoko.ui.transaction.TransactionViewModel
+import com.cuncis.bukatoko.ui.transaction.detail.TransactionDetailFragment
 import com.cuncis.bukatoko.util.Constants.TAB_KEY
 import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.Status
@@ -53,6 +55,19 @@ class TabTransactionFragment : Fragment() {
         initPaid()
 
         observeViewModel()
+
+        initListener()
+    }
+
+    private fun initListener() {
+        unpaidAdapter.setListener { code ->
+            val directions = TransactionFragmentDirections.actionNavTransactionToTransactionDetailFragment(code.toString())
+            findNavController().navigate(directions)
+        }
+        paidAdapter.setListener { code ->
+            val directions = TransactionFragmentDirections.actionNavTransactionToTransactionDetailFragment(code.toString())
+            findNavController().navigate(directions)
+        }
     }
 
     private fun observeViewModel() {
@@ -69,6 +84,7 @@ class TabTransactionFragment : Fragment() {
                     binding.progressBar.hideView()
                     it.data?.data?.let { transactionList ->
                         unpaidAdapter.submitUnpaidList(transactionList)
+                        Log.d(TAG, "observeViewModel: list data - $transactionList")
                     }
                 }
                 Status.ERROR -> {
@@ -85,7 +101,6 @@ class TabTransactionFragment : Fragment() {
                 Status.SUCCESS -> {
                     binding.progressBar.hideView()
                     it.data?.data?.let { transactionList ->
-                        Log.d(TAG, "observeViewModel: $transactionList")
                         paidAdapter.submitPaidList(transactionList)
                     }
                 }

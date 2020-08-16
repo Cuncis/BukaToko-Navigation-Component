@@ -11,6 +11,7 @@ import com.cuncis.bukatoko.databinding.ItemTransactionBinding
 class PaidAdapter: RecyclerView.Adapter<PaidAdapter.ViewHolder>() {
 
     var onUploadClick: ((String?) -> Unit)? = null
+    private var listener: ((String?) -> Unit)? = null
 
     private val paidList = arrayListOf<Transaction.Response.Data>()
 
@@ -31,10 +32,17 @@ class PaidAdapter: RecyclerView.Adapter<PaidAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
+    fun setListener(listener: ((String?) -> Unit)) {
+        this.listener = listener
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.transaction = paidList[position]
         holder.binding.btnUpload.setOnClickListener {
             onUploadClick?.invoke(paidList[position].transaction_code)
+        }
+        holder.itemView.setOnClickListener {
+            listener?.invoke(paidList[position].transaction_code)
         }
     }
 
