@@ -82,7 +82,7 @@ class CheckoutFragment : Fragment() {
             }
         }
         binding.tvDismiss.setOnClickListener {
-            findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
+//            findNavController().navigate(R.id.action_checkoutFragment_to_cartFragment)
         }
         binding.btnTrans.setOnClickListener {
             findNavController().navigate(R.id.action_checkoutFragment_to_transactionUploadFragment)

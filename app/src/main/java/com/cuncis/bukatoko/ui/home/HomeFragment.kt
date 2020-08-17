@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cuncis.bukatoko.R
@@ -70,6 +71,10 @@ class HomeFragment : Fragment(),
 
             homeViewModel.getAllProducts()
         }
+        binding.fabStateConnection.setOnClickListener {
+            val bundle = bundleOf("to" to "cart")
+            findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
+        }
     }
 
     private fun observeViewModel() {
@@ -111,7 +116,6 @@ class HomeFragment : Fragment(),
     }
 
     override fun onItemClick(product: Product.Data) {
-//        val action = HomeFragmentDirections.actionNavHomeToDetailFragment(product)
         val bundle = bundleOf("to" to "detail", "product" to product)
         findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
     }

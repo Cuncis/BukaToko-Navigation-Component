@@ -14,34 +14,20 @@
         <action
             android:id="@+id/action_nav_home_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <!--        <action-->
-        <!--            android:id="@+id/action_nav_home_to_detailFragment"-->
-        <!--            app:destination="@id/detailFragment" />-->
         <action
             android:id="@+id/action_nav_home_self"
             app:destination="@id/nav_home" />
         <action
-            android:id="@+id/action_nav_home_to_cartFragment"
-            app:destination="@id/cartFragment" />
-        <action
             android:id="@+id/action_nav_home_to_nav_detail"
-            app:destination="@id/nav_detail">
-            <argument
-                android:name="to"
-                android:defaultValue="detail"
-                app:argType="string" />
-            <!--            <argument-->
-            <!--                android:name="to"-->
-            <!--                android:defaultValue="cart"-->
-            <!--                app:argType="string" />-->
-            <!--            <argument-->
-            <!--                android:name="to"-->
-            <!--                android:defaultValue="checkout"-->
-            <!--                app:argType="string" />-->
-            <argument
-                android:name="product"
-                app:argType="com.cuncis.bukatoko.data.model.Product$Data" />
-        </action>
+            app:destination="@id/nav_detail" />
+<!--            <argument-->
+<!--                android:name="to"-->
+<!--                android:defaultValue=""-->
+<!--                app:argType="string" />-->
+<!--            <argument-->
+<!--                android:name="product"-->
+<!--                app:argType="com.cuncis.bukatoko.data.model.Product$Data"-->
+<!--                app:nullable="true"/>-->
     </fragment>
 
     <fragment
@@ -93,17 +79,6 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-    <!--    <fragment-->
-    <!--        android:id="@+id/detailFragment"-->
-    <!--        android:name="com.cuncis.bukatoko.ui.home.detail.DetailFragment"-->
-    <!--        tools:layout="@layout/fragment_detail" >-->
-    <!--        <action-->
-    <!--            android:id="@+id/action_detailFragment_to_cartFragment"-->
-    <!--            app:destination="@id/cartFragment" />-->
-    <!--        <argument-->
-    <!--            android:name="product"-->
-    <!--            app:argType="com.cuncis.bukatoko.data.model.Product$Data" />-->
-    <!--    </fragment>-->
     <fragment
         android:id="@+id/nav_profil"
         android:name="com.cuncis.bukatoko.ui.user.profile.ProfileFragment"
@@ -113,21 +88,21 @@
             android:id="@+id/action_nav_profil_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
-    <fragment
-        android:id="@+id/cartFragment"
-        android:name="com.cuncis.bukatoko.ui.cart.CartFragment"
-        android:label="Cart"
-        tools:layout="@layout/fragment_cart">
-        <action
-            android:id="@+id/action_cartFragment_self"
-            app:destination="@id/cartFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cartFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_cartFragment_to_checkoutFragment"
-            app:destination="@id/checkoutFragment" />
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/cartFragment"-->
+<!--        android:name="com.cuncis.bukatoko.ui.cart.CartFragment"-->
+<!--        android:label="Cart"-->
+<!--        tools:layout="@layout/fragment_cart">-->
+<!--        <action-->
+<!--            android:id="@+id/action_cartFragment_self"-->
+<!--            app:destination="@id/cartFragment"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popUpTo="@id/cartFragment"-->
+<!--            app:popUpToInclusive="true" />-->
+<!--        <action-->
+<!--            android:id="@+id/action_cartFragment_to_checkoutFragment"-->
+<!--            app:destination="@id/checkoutFragment" />-->
+<!--    </fragment>-->
     <fragment
         android:id="@+id/checkoutFragment"
         android:name="com.cuncis.bukatoko.ui.cart.checkout.CheckoutFragment"
@@ -139,12 +114,12 @@
         <argument
             android:name="grandTotal"
             app:argType="float" />
-        <action
-            android:id="@+id/action_checkoutFragment_to_cartFragment"
-            app:destination="@id/cartFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cartFragment"
-            app:popUpToInclusive="true" />
+<!--        <action-->
+<!--            android:id="@+id/action_checkoutFragment_to_cartFragment"-->
+<!--            app:destination="@id/cartFragment"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popUpTo="@id/cartFragment"-->
+<!--            app:popUpToInclusive="true" />-->
         <action
             android:id="@+id/action_checkoutFragment_to_nav_transaction"
             app:destination="@id/nav_transaction"

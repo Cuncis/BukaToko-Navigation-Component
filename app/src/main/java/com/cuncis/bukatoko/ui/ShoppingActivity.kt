@@ -16,6 +16,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.cuncis.bukatoko.R
@@ -104,9 +105,10 @@ class ShoppingActivity : AppCompatActivity() {
                 dialogLoginAlert()
             } else {
                 if (findNavController(R.id.nav_host_fragment).currentDestination?.id == R.id.nav_home) {
-                    findNavController(R.id.nav_host_fragment).navigate(
-                        R.id.action_nav_home_to_cartFragment
-                    )
+//                    val bundle = bundleOf("to" to "cart")
+                    val bundle = Bundle()
+                    bundle.putString("to", "cart")
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.action_nav_home_to_nav_detail, bundle)
                 }
             }
         }

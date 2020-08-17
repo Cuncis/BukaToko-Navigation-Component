@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_detail"
-    app:startDestination="@id/detailFragment2">
+    app:startDestination="@id/detailContainerFragment">
 
     <fragment
         android:id="@+id/detailFragment2"
@@ -19,9 +20,21 @@
         <action
             android:id="@+id/action_cartFragment2_to_checkoutFragment2"
             app:destination="@id/checkoutFragment2" />
+        <action
+            android:id="@+id/action_cartFragment2_self"
+            app:destination="@id/cartFragment2" />
     </fragment>
     <fragment
         android:id="@+id/checkoutFragment2"
         android:name="com.cuncis.bukatoko.ui.cart.checkout.CheckoutFragment"
         android:label="CheckoutFragment" />
+    <fragment
+        android:id="@+id/detailContainerFragment"
+        android:name="com.cuncis.bukatoko.ui.detail.DetailContainerFragment"
+        android:label="fragment_detail_container"
+        tools:layout="@layout/fragment_detail_container" >
+        <action
+            android:id="@+id/action_detailContainerFragment_to_detailFragment2"
+            app:destination="@id/detailFragment2" />
+    </fragment>
 </navigation>

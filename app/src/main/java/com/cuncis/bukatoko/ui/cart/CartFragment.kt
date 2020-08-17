@@ -13,6 +13,7 @@ import com.cuncis.bukatoko.R
 import com.cuncis.bukatoko.data.local.ShoppingPref
 import com.cuncis.bukatoko.data.model.Cart
 import com.cuncis.bukatoko.databinding.FragmentCartBinding
+import com.cuncis.bukatoko.ui.ShoppingActivity
 import com.cuncis.bukatoko.util.Constants.TAG
 import com.cuncis.bukatoko.util.RupiahHelper
 import com.cuncis.bukatoko.util.Utils.Companion.showView
@@ -42,6 +43,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        (requireActivity() as ShoppingActivity).supportActionBar?.title = "Cart"
 
         cartAdapter = CartAdapter(this)
         binding.rvCart.adapter = cartAdapter
@@ -59,10 +61,10 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
             if (carts.isEmpty()) {
                 Toast.makeText(requireContext(), "Cart is Empty", Toast.LENGTH_SHORT).show()
             } else {
-                val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(
-                    ShoppingPref.getUserId(requireContext()), grandTotal.toFloat()
-                )
-                findNavController().navigate(action)
+//                val action = CartFragmentDirections.actionCartFragmentToCheckoutFragment(
+//                    ShoppingPref.getUserId(requireContext()), grandTotal.toFloat()
+//                )
+//                findNavController().navigate(action)
             }
         }
     }
@@ -74,7 +76,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
         builder.setPositiveButton("Yes") { dialog, _ ->
             cartViewModel.deleteCart()
             cartAdapter.clearCart()
-            findNavController().navigate(R.id.action_cartFragment_self)
+//            findNavController().navigate(R.id.action_cartFragment_self)
             dialog.dismiss()
         }
         builder.setNegativeButton("No") { dialog, _ ->
@@ -99,7 +101,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemSelectedListener {
     override fun onItemDeleted(position: Int) {
         cartAdapter.removeItem(position)
         cartViewModel.deleteCartById(carts[position].productId)
-        findNavController().navigate(R.id.action_cartFragment_self)
+//        findNavController().navigate(R.id.action_cartFragment_self)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
