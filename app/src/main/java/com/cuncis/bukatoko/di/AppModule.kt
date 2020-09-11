@@ -1,14 +1,13 @@
 package com.cuncis.bukatoko.di
 
-import com.cuncis.bukatoko.data.api.provideClientProduct
-import com.cuncis.bukatoko.data.api.provideClientRajaOngkir
-import com.cuncis.bukatoko.data.api.provideHttpLoggingInterceptor
-import com.cuncis.bukatoko.data.api.provideOkHttpClient
+import com.cuncis.bukatoko.data.api.*
 import com.cuncis.bukatoko.data.local.persistence.CartDao
 import com.cuncis.bukatoko.data.local.persistence.ShoppingDatabase
+import com.cuncis.bukatoko.data.repository.ApiBase64Repo
 import com.cuncis.bukatoko.data.repository.ApiRepoProduct
 import com.cuncis.bukatoko.data.repository.ApiRepoRajaOngkir
 import com.cuncis.bukatoko.data.repository.DbRepoCart
+import com.cuncis.bukatoko.ui.base64.Base64ViewModel
 import com.cuncis.bukatoko.ui.cart.CartViewModel
 import com.cuncis.bukatoko.ui.cart.checkout.CheckoutViewModel
 import com.cuncis.bukatoko.ui.home.HomeViewModel
@@ -26,12 +25,14 @@ val appModule = module {
     factory { provideOkHttpClient() }
     factory { provideClientProduct(get()) }
     factory { provideClientRajaOngkir(get()) }
+    factory { provideClientBase64(get()) }
 }
 
 val repoModule = module {
     factory { ApiRepoProduct(get()) }
     factory { DbRepoCart(get()) }
     factory { ApiRepoRajaOngkir(get()) }
+    factory { ApiBase64Repo(get()) }
 }
 
 val localModule = module {
@@ -53,4 +54,5 @@ val viewModelModule = module {
             get()
         )
     }
+    viewModel { Base64ViewModel(get()) }
 }

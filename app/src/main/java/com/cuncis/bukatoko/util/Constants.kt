@@ -11,4 +11,5 @@ object Constants {
     const val PASSWORD_KEY = "password"
 
     const val TAB_KEY = "tab_transaction"
+
 }

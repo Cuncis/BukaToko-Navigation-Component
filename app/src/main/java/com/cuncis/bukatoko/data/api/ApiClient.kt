@@ -40,3 +40,12 @@ fun provideClientRajaOngkir(okHttpClient: OkHttpClient): TheShippingPaymentApi {
         .build()
         .create(TheShippingPaymentApi::class.java)
 }
+
+fun provideClientBase64(okHttpClient: OkHttpClient): TheBase64Api {
+    return Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE64_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+        .create(TheBase64Api::class.java)
+}

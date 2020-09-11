@@ -15,6 +15,7 @@ class HomeViewModel(private val apiRepoProduct: ApiRepoProduct, application: App
 //    init {
 //        getAllProducts()
 //    }
+    private lateinit var homeNavigation: HomeNavigation
 
     private val _dataProducts = MutableLiveData<Resource<Product.Response>>()
     val dataProducts: MutableLiveData<Resource<Product.Response>>
@@ -30,6 +31,14 @@ class HomeViewModel(private val apiRepoProduct: ApiRepoProduct, application: App
                 _dataProducts.postValue(Resource.error(t.message.toString(), null, t))
             }
         }
+    }
+
+    fun setNavigation(homeNavigation: HomeNavigation) {
+        this.homeNavigation = homeNavigation
+    }
+
+    fun base64Click() {
+        homeNavigation.base64Click()
     }
 
 }

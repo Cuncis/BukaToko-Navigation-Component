@@ -20,7 +20,10 @@
         <action
             android:id="@+id/action_nav_home_to_nav_detail"
             app:destination="@id/nav_detail" />
-<!--            <argument-->
+        <action
+            android:id="@+id/action_nav_home_to_base64Fragment"
+            app:destination="@id/base64Fragment" />
+        <!--            <argument-->
 <!--                android:name="to"-->
 <!--                android:defaultValue=""-->
 <!--                app:argType="string" />-->
@@ -155,4 +158,9 @@
             android:id="@+id/action_transactionDetailFragment_to_nav_transaction"
             app:destination="@id/nav_transaction" />
     </fragment>
+    <fragment
+        android:id="@+id/base64Fragment"
+        android:name="com.cuncis.bukatoko.ui.base64.Base64Fragment"
+        android:label="fragment_base64"
+        tools:layout="@layout/fragment_base64" />
 </navigation>

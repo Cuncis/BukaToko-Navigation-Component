@@ -22,8 +22,7 @@ import com.cuncis.bukatoko.util.NetworkConnectionUtils
 import com.cuncis.bukatoko.util.Status
 import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment(),
-    HomeAdapter.OnProductClickListener {
+class HomeFragment : Fragment(), HomeAdapter.OnProductClickListener, HomeNavigation {
 
     private lateinit var homeAdapter: HomeAdapter
 
@@ -71,13 +70,17 @@ class HomeFragment : Fragment(),
 
             homeViewModel.getAllProducts()
         }
+//        binding.fabStateConnection.setOnClickListener {
+//            val bundle = bundleOf("to" to "cart")
+//            findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
+//        }
         binding.fabStateConnection.setOnClickListener {
-            val bundle = bundleOf("to" to "cart")
-            findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
+            findNavController().navigate(R.id.action_nav_home_to_base64Fragment)
         }
     }
 
     private fun observeViewModel() {
+        homeViewModel.setNavigation(this)
         homeViewModel.getAllProducts()
         homeViewModel.dataProducts.observe(viewLifecycleOwner, Observer {
             when (it.status) {
@@ -118,5 +121,9 @@ class HomeFragment : Fragment(),
     override fun onItemClick(product: Product.Data) {
         val bundle = bundleOf("to" to "detail", "product" to product)
         findNavController().navigate(R.id.action_nav_home_to_nav_detail, bundle)
+    }
+
+    override fun base64Click() {
+        Toast.makeText(requireContext(), "Base64 Click", Toast.LENGTH_SHORT).show()
     }
 }
